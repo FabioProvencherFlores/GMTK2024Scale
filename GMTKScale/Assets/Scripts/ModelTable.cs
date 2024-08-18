@@ -1,13 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-
+[ExecuteInEditMode]
 public class ModelTable : MonoBehaviour
 {
     LineRenderer lineRenderer;
     public int circleSteps = 100;
     public float radius = 3f;
+    [SerializeField, Range(0f, 1f)]
+    public float sliderValue = 0f;
+
+    //[SerializeField]
+
+
+    [SerializeField] float minOrbitRadius = 0f;
+    [SerializeField] float maxOrbitRadius = 100f;
 
     // Start is called before the first frame update
     void Start()
@@ -24,8 +33,9 @@ public class ModelTable : MonoBehaviour
 	void DrawOrbit()
     {
         lineRenderer.positionCount = circleSteps;
+		radius = minOrbitRadius + ((maxOrbitRadius - minOrbitRadius) * sliderValue);
 
-        for (int i = 0; i < circleSteps; i++)
+		for (int i = 0; i < circleSteps; i++)
         {
             float progress = (float)i / circleSteps;
             float currentRadian = progress * 2f * Mathf.PI;
