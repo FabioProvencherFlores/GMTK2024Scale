@@ -11,7 +11,14 @@
 /[Bb]uild/
 /[Bb]uilds/
 /[Ll]ogs/
-/[Uu]ser[Ss]ettings/
+/GMTKScale/[Uu]ser[Ss]ettings/
+/GMTKScale/[Ll]ibrary/
+/GMTKScale/[Tt]emp/
+/GMTKScale/[Oo]bj/
+/GMTKScale/[Bb]uild/
+/GMTKScale/[Bb]uilds/
+/GMTKScale/[Ll]ogs/
+/GMTKScale/[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
