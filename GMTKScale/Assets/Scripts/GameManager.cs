@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public float[] speeds;
 
-    int currentView = 0; // 0 = window, 1 = model
+    int currentView = 0; // 0 = lobby, 1 = window, 2= model
 
 	private void Awake()
 	{
@@ -33,31 +33,88 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (currentView == 0)
-            {
-                foreach (GameObject obj in windowViewObjs)
-                {
-                    obj.SetActive(false);
-                }
-				foreach (GameObject obj in ModelViewObjs)
-				{
-					obj.SetActive(true);
-				}
-                currentView = 1;
+			if (currentView == 0)
+			{
+				GoToWindow();
 			}
-            else if (currentView == 1)
-            {
-                foreach (GameObject obj in windowViewObjs)
-                {
-                    obj.SetActive(true);
-                }
-				foreach (GameObject obj in ModelViewObjs)
-				{
-					obj.SetActive(false);
-				}
-                windowController.StartTimer();
-                currentView = 0;
-            }
+			else if (currentView == 1)
+			{
+				GoToModel();
+			}
+			else if (currentView == 2)
+			{
+				GoToLobby();
+			}
         }
-    }
+		if (currentView == 1)
+		{
+			if (Input.GetKeyDown(KeyCode.Mouse0))
+			{
+				GoToLobby();
+			}
+
+		}
+	}
+
+	private void GoToWindow()
+	{
+		foreach (GameObject obj in windowViewObjs)
+		{
+			obj.SetActive(true);
+		}
+		foreach (GameObject obj in ModelViewObjs)
+		{
+			obj.SetActive(false);
+		}
+		foreach (GameObject obj in lobbyViewObjs)
+		{
+			obj.SetActive(false);
+		}
+		windowController.StartTimer();
+		currentView = 1;
+	}
+
+	private void GoToModel()
+	{
+		foreach (GameObject obj in windowViewObjs)
+		{
+			obj.SetActive(false);
+		}
+		foreach (GameObject obj in ModelViewObjs)
+		{
+			obj.SetActive(true);
+		}
+		foreach (GameObject obj in lobbyViewObjs)
+		{
+			obj.SetActive(false);
+		}
+		currentView = 2;
+	}
+
+	private void GoToLobby()
+	{
+		foreach (GameObject obj in windowViewObjs)
+		{
+			obj.SetActive(false);
+		}
+		foreach (GameObject obj in ModelViewObjs)
+		{
+			obj.SetActive(false);
+		}
+		foreach (GameObject obj in lobbyViewObjs)
+		{
+			obj.SetActive(true);
+		}
+		currentView = 0;
+	}
+
+	public void OnWindowClick()
+	{
+		GoToWindow();
+	}
+
+	public void OnModelClick()
+	{
+		GoToModel();
+	}
 }
