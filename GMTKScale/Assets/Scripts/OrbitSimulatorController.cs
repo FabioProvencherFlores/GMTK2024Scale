@@ -64,9 +64,18 @@ public class OrbitSimulatorController : MonoBehaviour
             orbit.UpdatePosition(t);
 		}
 
-		double mainGameTimerd = (double)GetTimeSinceOpened();
-		TimeSpan time = TimeSpan.FromSeconds(mainGameTimerd);
-        string displayTime = time.Minutes.ToString() + ":" + time.Seconds.ToString() + ":" + time.Milliseconds.ToString(); 
+		//double mainGameTimerd = (double)GetTimeSinceOpened();
+		//TimeSpan time = TimeSpan.FromSeconds(mainGameTimerd);
+  //      string displayTime = time.Minutes.ToString() + ":" + time.Seconds.ToString() + ":" + time.Milliseconds.ToString(); 
+
+        float timeMS = GetTimeSinceOpened();
+        int timeS = (int)timeMS;
+        string displayTime = "";
+        if (timeS < 100)
+            displayTime += "0";
+        if (timeS < 10)
+            displayTime += "0";
+        displayTime += timeS.ToString();
         chrono.text = displayTime;
 	}
 
