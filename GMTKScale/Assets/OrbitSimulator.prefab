@@ -824,12 +824,13 @@ MonoBehaviour:
   orbitRadius: 0
   debugTime: 0
   chrono: {fileID: 5880409636906979115}
+  chronotext: {fileID: 4556125258332628629}
   laserStartPos: {fileID: 3030523212166558233}
   laserEndPos: {fileID: 1957695031679733500}
   targetedColor: {r: 1, g: 0, b: 0, a: 0}
   noTargetColor: {r: 0.497775, g: 0.70071197, b: 0.8867924, a: 0}
   showLaserIfNoTarget: 1
-  speedText: {fileID: 7870431740752096015}
+  speedTextAnimator: {fileID: 663028308516984937}
 --- !u!120 &4819670430157352055
 LineRenderer:
   serializedVersion: 2
@@ -1493,6 +1494,7 @@ GameObject:
   - component: {fileID: 2975620079104146604}
   - component: {fileID: 60754170588697950}
   - component: {fileID: 5880409636906979115}
+  - component: {fileID: 4556125258332628629}
   m_Layer: 0
   m_Name: ChronoText
   m_TagString: Untagged
@@ -1516,7 +1518,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 437, y: 108}
+  m_AnchoredPosition: {x: 422, y: 108}
   m_SizeDelta: {x: -355, y: -363}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &60754170588697950
@@ -1547,10 +1549,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 013
+  m_text: 048
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2cb63eced5b16784da9a8c5a8328b3e7, type: 2}
+  m_sharedMaterial: {fileID: -1253469089470306341, guid: 2cb63eced5b16784da9a8c5a8328b3e7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1616,6 +1618,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4556125258332628629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5589127106889828861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c87664a156ce684bba22fd1a8227c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToShow: 030
+  currentTextShown: 
+  timeBetweenTicks: 0.08
+  textUI: {fileID: 5880409636906979115}
 --- !u!1 &5650592029793458774
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,6 +1936,7 @@ GameObject:
   - component: {fileID: 2079440663464578549}
   - component: {fileID: 2855640229478492088}
   - component: {fileID: 7870431740752096015}
+  - component: {fileID: 663028308516984937}
   m_Layer: 0
   m_Name: SpeedText
   m_TagString: Untagged
@@ -1941,7 +1960,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -137, y: -185}
+  m_AnchoredPosition: {x: -140.7, y: -188.3}
   m_SizeDelta: {x: -600, y: -550}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2855640229478492088
@@ -1974,8 +1993,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2cb63eced5b16784da9a8c5a8328b3e7, type: 2}
+  m_sharedMaterial: {fileID: -1253469089470306341, guid: 2cb63eced5b16784da9a8c5a8328b3e7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1999,8 +2018,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 29.7
+  m_fontSizeBase: 29.7
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2041,6 +2060,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &663028308516984937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6947725925100500249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c87664a156ce684bba22fd1a8227c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToShow: 000
+  currentTextShown: 
+  timeBetweenTicks: 0.03
+  textUI: {fileID: 7870431740752096015}
 --- !u!1 &7066702878469459234
 GameObject:
   m_ObjectHideFlags: 0

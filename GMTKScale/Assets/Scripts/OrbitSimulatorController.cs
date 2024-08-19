@@ -32,8 +32,11 @@ public class OrbitSimulatorController : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI chrono;
+    private string _displayedChrono = "";
+    [SerializeField]
+    private TextAnimator chronotext;
 
-    [Header("Speedometer")]
+	[Header("Speedometer")]
     [SerializeField]
     Transform laserStartPos;
     [SerializeField]
@@ -46,7 +49,8 @@ public class OrbitSimulatorController : MonoBehaviour
     [SerializeField]
     bool showLaserIfNoTarget = true;
     [SerializeField]
-    TextMeshProUGUI speedText;
+    TextAnimator speedTextAnimator;
+    string currentSpeedText;
 
     void Start()
     {
@@ -102,7 +106,7 @@ public class OrbitSimulatorController : MonoBehaviour
 
 
         UpdateChronoTime();
-
+        string newSpeedText = "";
         if (laserSeesPlanet)
         {
 		    _lineRenderer.positionCount = 2;
@@ -113,7 +117,7 @@ public class OrbitSimulatorController : MonoBehaviour
             string speedtext = "";
             if (speed < 100) speedtext += "0";
             speedtext += speed.ToString();
-            speedText.text = speedtext;
+			newSpeedText = speedtext;
 		}
         else
         {
@@ -128,10 +132,15 @@ public class OrbitSimulatorController : MonoBehaviour
 		        _lineRenderer.positionCount = 0;
             }
 
-            speedText.text = "000";
+			newSpeedText = "000";
         }
         
-
+        if (newSpeedText != currentSpeedText)
+        {
+            currentSpeedText = newSpeedText;
+            speedTextAnimator.textToShow = newSpeedText;
+            speedTextAnimator.StartMorph();
+        }
 	}
 
     private void UpdateChronoTime()
@@ -144,7 +153,13 @@ public class OrbitSimulatorController : MonoBehaviour
 		if (timeS < 10)
 			displayTime += "0";
 		displayTime += timeS.ToString();
-		chrono.text = displayTime;
+        if (displayTime != _displayedChrono)
+        {
+            _displayedChrono = displayTime;
+            chronotext.textToShow = displayTime;
+            chronotext.StartAnimation();
+        }
+		//chrono.text = displayTime;
 	}
 
     public float GetTimeSinceOpened()
