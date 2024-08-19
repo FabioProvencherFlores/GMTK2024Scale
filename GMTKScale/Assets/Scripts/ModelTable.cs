@@ -1,51 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class ModelTable : MonoBehaviour
 {
-    LineRenderer lineRenderer;
-    public int circleSteps = 100;
-    public float radius = 3f;
-    [SerializeField, Range(0f, 1f)]
-    public float sliderValue = 0f;
 
-    //[SerializeField]
-
+    [SerializeField]
+    ModelOrbit[] modelOrbits;
 
     [SerializeField] float minOrbitRadius = 0f;
     [SerializeField] float maxOrbitRadius = 100f;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    Slider slider;
+
+    public float uiSlider = 0f;
+    private int _currentSelectIdx = 0;
+
+    void Awake()
     {
-        lineRenderer = GetComponent<LineRenderer>();
-        //DrawOrbit();
+        if (modelOrbits.Length == 0)
+            Debug.LogError("No Orbits to draw", this);
+        
+        foreach ( ModelOrbit modelOrbit in modelOrbits )
+        {
+            modelOrbit.minOrbitRadius = minOrbitRadius;
+            modelOrbit.maxOrbitRadius = maxOrbitRadius;
+        }
     }
+
+	private void Start()
+	{
+		uiSlider = modelOrbits[_currentSelectIdx].SelectOrbit();
+	}
+	public void SelectNext()
+    {
+        modelOrbits[_currentSelectIdx].UnselectOrbit();
+        Debug.Log("CHANGE");
+        _currentSelectIdx++;
+        _currentSelectIdx %= modelOrbits.Length;
+
+        uiSlider = modelOrbits[_currentSelectIdx].SelectOrbit();
+        slider.value = uiSlider;
+	}
 
 	private void Update()
 	{
-        DrawOrbit();
-	}
+        int idx = 0;
+		foreach (ModelOrbit modelOrbit in modelOrbits)
+		{
+            if (idx == _currentSelectIdx)
+            {
+                modelOrbit.sliderValue = uiSlider;
+            }
 
-	void DrawOrbit()
-    {
-        lineRenderer.positionCount = circleSteps;
-		radius = minOrbitRadius + ((maxOrbitRadius - minOrbitRadius) * sliderValue);
-
-		for (int i = 0; i < circleSteps; i++)
-        {
-            float progress = (float)i / circleSteps;
-            float currentRadian = progress * 2f * Mathf.PI;
-
-            float x = gameObject.transform.position.x + (Mathf.Cos(currentRadian) * radius);
-            float y = gameObject.transform.position.y + 0.1f;
-			float z = gameObject.transform.position.z + (Mathf.Sin(currentRadian) * radius);
-
-            Vector3 position = new Vector3(x, y, z);
-            lineRenderer.SetPosition(i, position);
-        }
+            idx++;
+            modelOrbit.DrawOrbit();
+		}
 	}
 }

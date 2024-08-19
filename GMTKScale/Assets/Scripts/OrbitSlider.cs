@@ -14,7 +14,7 @@ public class OrbitSlider : MonoBehaviour
 	}
 	void Update()
     {
-		table.sliderValue = slider.value;
+		table.uiSlider = slider.value;
 
 	}
 }
