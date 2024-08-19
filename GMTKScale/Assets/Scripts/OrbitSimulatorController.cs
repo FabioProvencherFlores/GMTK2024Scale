@@ -69,12 +69,14 @@ public class OrbitSimulatorController : MonoBehaviour
     void Update()
     {
         bool laserSeesPlanet = false;
-        Vector3 laserTempEndPos = laserEndPos.position;
+        bool isInGame = Application.isPlaying;
+
+		Vector3 laserTempEndPos = laserEndPos.position;
         int speedidx = 0;
         foreach (Orbit orbit in orbits)
         {
             float t = 0f;
-            if (Application.isPlaying)
+            if (isInGame)
             {
 			    //_currentTime += Time.deltaTime;
 			    t = Time.time;
@@ -104,7 +106,7 @@ public class OrbitSimulatorController : MonoBehaviour
         if (laserSeesPlanet)
         {
 		    _lineRenderer.positionCount = 2;
-            _lineRenderer.materials[0].color = targetedColor;
+            if (isInGame) _lineRenderer.materials[0].color = targetedColor;
 		    _lineRenderer.SetPosition(0, laserStartPos.position);
 		    _lineRenderer.SetPosition(1, laserTempEndPos);
             int speed = (10 - speedidx) * 50;
@@ -117,7 +119,7 @@ public class OrbitSimulatorController : MonoBehaviour
         {
             if (showLaserIfNoTarget)
             {
-			    _lineRenderer.materials[0].color = noTargetColor;
+			    if (isInGame) _lineRenderer.materials[0].color = noTargetColor;
 			    _lineRenderer.SetPosition(0, laserStartPos.position);
 			    _lineRenderer.SetPosition(1, laserTempEndPos);
             }
