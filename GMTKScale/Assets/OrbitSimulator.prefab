@@ -1886,7 +1886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c87664a156ce684bba22fd1a8227c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textToShow: 004
+  textToShow: 186
   currentTextShown: 
   timeBetweenTicks: 0.08
   textUI: {fileID: 5880409636906979115}
@@ -2174,7 +2174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsPerRotation: 34.17
-  speedIdx: 9
+  speedIdx: 1
   orbitRadius: 29.9
   currentAngle: 0
   minAngleForLaser: 1.5
@@ -2717,7 +2717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsPerRotation: 3.55
-  speedIdx: 1
+  speedIdx: 9
   orbitRadius: 100
   currentAngle: 0
   minAngleForLaser: 1.5

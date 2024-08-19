@@ -21,6 +21,17 @@ public class GameManager : MonoBehaviour
 
     int currentView = 0; // 0 = lobby, 1 = window, 2= model
 
+	[Header("Fast Forward")]
+	[SerializeField, Min(1f)]
+	float fastForwardMultiplier = 1f;
+	[SerializeField, Min(1f)]
+	float veryFastForwardMultiplier = 1f;
+	private float _additionnalTimeFromFastForward = 0f;
+	private float _currentIngameTimeBeforeFastForward = 0f;
+	private float _lastTimeUpdate = 0f;
+	private bool _isFastForward = false;
+	private bool _isVeryFastoForward = false;
+
 	private void Awake()
 	{
 		if (instance == null && instance != this)
@@ -54,6 +65,23 @@ public class GameManager : MonoBehaviour
 			}
 
 		}
+
+		float engineTime = Time.time;
+		if (_lastTimeUpdate < engineTime)
+		{
+			float deltaTime = engineTime - _lastTimeUpdate;
+			_lastTimeUpdate = engineTime;
+			_currentIngameTimeBeforeFastForward += deltaTime;
+
+			if (_isFastForward)
+			{
+				_additionnalTimeFromFastForward += (deltaTime * (fastForwardMultiplier - 1f));
+			}
+            else if (_isVeryFastoForward)
+            {
+				_additionnalTimeFromFastForward += (deltaTime * (veryFastForwardMultiplier - 1f));
+            }
+        }
 	}
 
 	private void GoToWindow()
@@ -74,6 +102,29 @@ public class GameManager : MonoBehaviour
 		currentView = 1;
 	}
 
+	public void StartNormalTime()
+	{
+		_isFastForward = false;
+		_isVeryFastoForward = false;
+	}
+
+	public void StartFastForward()
+	{
+		_isFastForward = true;
+		_isVeryFastoForward = false;
+	}
+
+	public void StartVeryFastForward()
+	{
+		_isFastForward = false;
+		_isVeryFastoForward = true;
+	}
+
+	public float GetCurrentTime()
+	{
+		return _currentIngameTimeBeforeFastForward + _additionnalTimeFromFastForward;
+	}
+
 	private void GoToModel()
 	{
 		foreach (GameObject obj in windowViewObjs)
@@ -89,6 +140,7 @@ public class GameManager : MonoBehaviour
 			obj.SetActive(false);
 		}
 		currentView = 2;
+		StartNormalTime();
 	}
 
 	private void GoToLobby()
@@ -106,6 +158,7 @@ public class GameManager : MonoBehaviour
 			obj.SetActive(true);
 		}
 		currentView = 0;
+		StartNormalTime();
 	}
 
 	public void OnLeaveModelButtonClick()

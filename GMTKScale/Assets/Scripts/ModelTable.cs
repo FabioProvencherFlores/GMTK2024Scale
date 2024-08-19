@@ -82,7 +82,7 @@ public class ModelTable : MonoBehaviour
 
 			idx++;
             modelOrbit.DrawOrbit();
-            modelOrbit.UpdatePosition(Time.time);
+            modelOrbit.UpdatePosition(GameManager.instance.GetCurrentTime());
 		}
 	}
 }

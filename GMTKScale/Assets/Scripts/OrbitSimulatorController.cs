@@ -52,6 +52,8 @@ public class OrbitSimulatorController : MonoBehaviour
     TextAnimator speedTextAnimator;
     string currentSpeedText;
 
+    bool _isCurrentlyFast = false;
+
     void Start()
     {
         Debug.Log("Hello");
@@ -83,7 +85,7 @@ public class OrbitSimulatorController : MonoBehaviour
             if (isInGame)
             {
 			    //_currentTime += Time.deltaTime;
-			    t = Time.time;
+			    t = GameManager.instance.GetCurrentTime();
             }
             else
             {
@@ -141,7 +143,27 @@ public class OrbitSimulatorController : MonoBehaviour
             speedTextAnimator.textToShow = newSpeedText;
             speedTextAnimator.StartMorph();
         }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            GameManager.instance.StartNormalTime();
+            _isCurrentlyFast = false;
+
+		}
+		else if (Input.GetKeyDown(KeyCode.S))
+		{
+			GameManager.instance.StartFastForward();
+            _isCurrentlyFast = true;
+		}
+		else if (Input.GetKeyDown(KeyCode.D))
+		{
+			GameManager.instance.StartVeryFastForward();
+            _isCurrentlyFast = true;
+		}
+
 	}
+
+    //private 
 
     private void UpdateChronoTime()
     {
@@ -158,17 +180,20 @@ public class OrbitSimulatorController : MonoBehaviour
             _displayedChrono = displayTime;
             chronotext.textToShow = displayTime;
             chronotext.StartAnimation();
+            if (_isCurrentlyFast)
+                chronotext.ForceFullText();
         }
 		//chrono.text = displayTime;
 	}
 
     public float GetTimeSinceOpened()
     {
-        return Time.time - timeOpened;
+        return GameManager.instance.GetCurrentTime() - timeOpened;
     }
 
     public void StartTimer()
     {
-        timeOpened = Time.time;
-    }
+        timeOpened = GameManager.instance.GetCurrentTime();
+		_isCurrentlyFast = false;
+	}
 }
