@@ -12,6 +12,9 @@ public class ModelOrbit : MonoBehaviour
 	[SerializeField, Range(5, 500)]
 	private int circleResolution = 100;
 
+	public float horizontalDeformation = 1f;
+	public float verticalDeformation = 1f;
+
 	private float radius = 3f;
 	public float minOrbitRadius = 3f;
 	public float maxOrbitRadius = 6f;
@@ -56,9 +59,9 @@ public class ModelOrbit : MonoBehaviour
 			float progress = (float)i / circleResolution;
 			float currentRadian = progress * 2f * Mathf.PI;
 
-			float x = gameObject.transform.position.x + (Mathf.Cos(currentRadian) * radius);
+			float x = gameObject.transform.position.x + (Mathf.Cos(currentRadian) * radius * horizontalDeformation);
 			float y = gameObject.transform.position.y + 0.1f;
-			float z = gameObject.transform.position.z + (Mathf.Sin(currentRadian) * radius);
+			float z = gameObject.transform.position.z + (Mathf.Sin(currentRadian) * radius * verticalDeformation);
 
 			Vector3 position = new Vector3(x, y, z);
 			_lineRenderer.SetPosition(i, position);

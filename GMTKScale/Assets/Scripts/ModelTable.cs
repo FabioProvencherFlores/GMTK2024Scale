@@ -12,6 +12,9 @@ public class ModelTable : MonoBehaviour
 
     [SerializeField] float minOrbitRadius = 0f;
     [SerializeField] float maxOrbitRadius = 100f;
+    
+    [SerializeField] float horizontalDeformation = 1f;
+    [SerializeField] float verticalDeformation = 1f;
 
     [SerializeField]
     Slider slider;
@@ -28,6 +31,9 @@ public class ModelTable : MonoBehaviour
         {
             modelOrbit.minOrbitRadius = minOrbitRadius;
             modelOrbit.maxOrbitRadius = maxOrbitRadius;
+            
+            modelOrbit.horizontalDeformation = horizontalDeformation;
+            modelOrbit.verticalDeformation = verticalDeformation;
         }
     }
 
@@ -56,7 +62,10 @@ public class ModelTable : MonoBehaviour
                 modelOrbit.sliderValue = uiSlider;
             }
 
-            idx++;
+			modelOrbit.horizontalDeformation = horizontalDeformation;
+			modelOrbit.verticalDeformation = verticalDeformation;
+
+			idx++;
             modelOrbit.DrawOrbit();
 		}
 	}
