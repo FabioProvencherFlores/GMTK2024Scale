@@ -81,7 +81,7 @@ public class ModelOrbit : MonoBehaviour
 	public void UpdatePosition(float aTime)
 	{
 		float x = gameObject.transform.position.x + (radius * horizontalDeformation * Mathf.Cos(aTime * 6.283f  / secondsPerRotation));
-		float y = gameObject.transform.position.y + 0.1f;
+		float y = gameObject.transform.position.y + 0.3f;
 		float z = gameObject.transform.position.z + (radius * verticalDeformation * Mathf.Sin(aTime * 6.283f / secondsPerRotation));
 
 

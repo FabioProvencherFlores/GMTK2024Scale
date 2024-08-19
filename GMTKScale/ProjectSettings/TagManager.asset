@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Model Background
+    uniqueID: 215502661
+    locked: 0
+  - name: Model Lines
+    uniqueID: 2634921641
+    locked: 0
+  - name: Model Planets
+    uniqueID: 1058578905
+    locked: 0
