@@ -32,12 +32,20 @@ public class GameManager : MonoBehaviour
 	private bool _isFastForward = false;
 	private bool _isVeryFastoForward = false;
 
+	[Header("GameFlow")]
+	[SerializeField]
+	float endGameTimeInSec = 960f;
+	private bool _isGameRunning = true;
+	[SerializeField]
+	float debugTime = 0f;
+
 	private void Awake()
 	{
 		if (instance == null && instance != this)
         {
             instance = this;
         }
+		debugTime = 0f;
 	}
 
 	void Update()
@@ -82,6 +90,15 @@ public class GameManager : MonoBehaviour
 				_additionnalTimeFromFastForward += (deltaTime * (veryFastForwardMultiplier - 1f));
             }
         }
+
+		if (_isGameRunning)
+		{
+			if (GetCurrentTime() > endGameTimeInSec)
+			{
+				TriggerEndGame();
+			}
+			_isGameRunning = false;
+		}
 	}
 
 	private void GoToWindow()
@@ -122,7 +139,7 @@ public class GameManager : MonoBehaviour
 
 	public float GetCurrentTime()
 	{
-		return _currentIngameTimeBeforeFastForward + _additionnalTimeFromFastForward;
+		return _currentIngameTimeBeforeFastForward + _additionnalTimeFromFastForward + debugTime;
 	}
 
 	private void GoToModel()
@@ -175,5 +192,23 @@ public class GameManager : MonoBehaviour
 	public void OnModelClick()
 	{
 		GoToModel();
+	}
+
+	public float GetEndGameBlackholeLerp()
+	{
+		float currentTimeInEndgame = GetCurrentTime() - 720f;
+		if (currentTimeInEndgame < 0f) return 1f;
+
+		float lerp = (180f - currentTimeInEndgame) / 180f;
+		
+		if(lerp < 0f) return 0f;
+
+		return lerp;
+	}
+
+	private void TriggerEndGame()
+	{
+
+
 	}
 }
