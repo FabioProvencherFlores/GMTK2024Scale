@@ -108,6 +108,11 @@ public class GameManager : MonoBehaviour
 		currentView = 0;
 	}
 
+	public void OnLeaveModelButtonClick()
+	{
+		GoToLobby();
+	}
+
 	public void OnWindowClick()
 	{
 		GoToWindow();
