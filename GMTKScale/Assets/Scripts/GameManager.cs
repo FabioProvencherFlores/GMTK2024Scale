@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     GameObject[] windowViewObjs;
     [SerializeField]
     GameObject[] ModelViewObjs;
+    [SerializeField]
+    GameObject[] lobbyViewObjs;
 
     [SerializeField]
     OrbitSimulatorController windowController;
