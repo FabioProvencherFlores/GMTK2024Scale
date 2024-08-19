@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
 
 		}
 
-		float engineTime = Time.time;
+		float engineTime = Time.timeSinceLevelLoad;
 		if (_lastTimeUpdate < engineTime)
 		{
 			float deltaTime = engineTime - _lastTimeUpdate;
