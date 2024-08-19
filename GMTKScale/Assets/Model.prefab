@@ -311,7 +311,7 @@ MonoBehaviour:
   secondsPerRotation: 1
   selectedSpeediDx: 0
   planetTransform: {fileID: 4578863129203044460}
-  selectedMat: {r: 1, g: 1, b: 1, a: 0}
+  selectedMat: {r: 1, g: 0, b: 0, a: 1}
   unselectedMat: {r: 0, g: 0, b: 0, a: 0}
 --- !u!120 &6472966262002656312
 LineRenderer:
@@ -863,7 +863,7 @@ MonoBehaviour:
   secondsPerRotation: 1
   selectedSpeediDx: 0
   planetTransform: {fileID: 3056368135798519828}
-  selectedMat: {r: 1, g: 1, b: 1, a: 0}
+  selectedMat: {r: 1, g: 0.9792701, b: 0, a: 1}
   unselectedMat: {r: 0, g: 0, b: 0, a: 0}
 --- !u!120 &3225972069281672653
 LineRenderer:
@@ -1058,7 +1058,7 @@ MonoBehaviour:
   secondsPerRotation: 1
   selectedSpeediDx: 0
   planetTransform: {fileID: 6127354842001214719}
-  selectedMat: {r: 1, g: 1, b: 1, a: 0}
+  selectedMat: {r: 0, g: 0.6470318, b: 1, a: 1}
   unselectedMat: {r: 0, g: 0, b: 0, a: 0}
 --- !u!120 &6000649732629738984
 LineRenderer:
@@ -1956,7 +1956,7 @@ MonoBehaviour:
   secondsPerRotation: 1
   selectedSpeediDx: 0
   planetTransform: {fileID: 1942653830305489502}
-  selectedMat: {r: 1, g: 1, b: 1, a: 0}
+  selectedMat: {r: 0.86108583, g: 0, b: 0.9843137, a: 1}
   unselectedMat: {r: 0, g: 0, b: 0, a: 0}
 --- !u!120 &5772540782903151343
 LineRenderer:
@@ -2975,7 +2975,7 @@ MonoBehaviour:
   secondsPerRotation: 1
   selectedSpeediDx: 0
   planetTransform: {fileID: 3435511686277322127}
-  selectedMat: {r: 1, g: 1, b: 1, a: 0}
+  selectedMat: {r: 0.7075472, g: 0.55847967, b: 0.23696157, a: 1}
   unselectedMat: {r: 0, g: 0, b: 0, a: 0}
 --- !u!120 &4136527688258513031
 LineRenderer:
