@@ -4,14 +4,27 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
     [SerializeField]
     GameObject[] windowViewObjs;
     [SerializeField]
     GameObject[] ModelViewObjs;
 
+    [SerializeField]
+    public float[] speeds;
+
     int currentView = 0; // 0 = window, 1 = model
 
-    void Update()
+	private void Awake()
+	{
+		if (instance == null && instance != this)
+        {
+            instance = this;
+        }
+	}
+
+	void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {

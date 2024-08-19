@@ -7,6 +7,7 @@ public class OrbitSlider : MonoBehaviour
 {
     public Slider slider;
     public ModelTable table;
+	public bool isRadius = true;
 
 	private void Start()
 	{
@@ -14,7 +15,15 @@ public class OrbitSlider : MonoBehaviour
 	}
 	void Update()
     {
-		table.uiSlider = slider.value;
+        if (isRadius)
+        {
+			table.uiSlider = ((float)slider.value) / 10f;
+        }
+		else
+		{
+			table.selectedSpeed = 9 - (int)slider.value;
+
+		}
 
 	}
 }

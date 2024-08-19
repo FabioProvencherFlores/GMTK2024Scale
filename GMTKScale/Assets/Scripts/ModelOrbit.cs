@@ -19,6 +19,14 @@ public class ModelOrbit : MonoBehaviour
 	public float minOrbitRadius = 3f;
 	public float maxOrbitRadius = 6f;
 
+	private float _selectedOffset = 0f;
+
+	public float secondsPerRotation = 1f;
+	public int selectedSpeediDx;
+
+	[SerializeField]
+	Transform planetTransform;
+
 	[SerializeField]
 	Color selectedMat;
 	[SerializeField]
@@ -38,6 +46,7 @@ public class ModelOrbit : MonoBehaviour
 	{
 		_lineRenderer.materials[0].color = selectedMat;
 		_lineRenderer.positionCount = 0;
+		_selectedOffset = 0.1f;
 		DrawOrbit();
 		return sliderValue;
 	}
@@ -46,6 +55,7 @@ public class ModelOrbit : MonoBehaviour
 	{
 		_lineRenderer.positionCount = 0;
 		_lineRenderer.materials[0].color = unselectedMat;
+		_selectedOffset = 0f;
 		DrawOrbit();
 	}
 
@@ -60,11 +70,21 @@ public class ModelOrbit : MonoBehaviour
 			float currentRadian = progress * 2f * Mathf.PI;
 
 			float x = gameObject.transform.position.x + (Mathf.Cos(currentRadian) * radius * horizontalDeformation);
-			float y = gameObject.transform.position.y + 0.1f;
+			float y = gameObject.transform.position.y + 0.1f + _selectedOffset;
 			float z = gameObject.transform.position.z + (Mathf.Sin(currentRadian) * radius * verticalDeformation);
 
 			Vector3 position = new Vector3(x, y, z);
 			_lineRenderer.SetPosition(i, position);
 		}
+	}
+
+	public void UpdatePosition(float aTime)
+	{
+		float x = gameObject.transform.position.x + (radius * horizontalDeformation * Mathf.Cos(aTime * 6.283f  / secondsPerRotation));
+		float y = gameObject.transform.position.y + 0.1f;
+		float z = gameObject.transform.position.z + (radius * verticalDeformation * Mathf.Sin(aTime * 6.283f / secondsPerRotation));
+
+
+		planetTransform.position = new Vector3(x, y, z);
 	}
 }
