@@ -725,9 +725,49 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2217432013843536550, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 25.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2661043877246835221, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
+      propertyPath: orbitRadius
+      value: 25.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2661043877246835221, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
+      propertyPath: secondsPerRotation
+      value: 34.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972837396627835014, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
+      propertyPath: orbitRadius
+      value: 89
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972837396627835014, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
+      propertyPath: secondsPerRotation
+      value: 23
+      objectReference: {fileID: 0}
     - target: {fileID: 3276929758333703789, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
       propertyPath: m_Name
       value: OrbitSimulator
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763163290421976869, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
+      propertyPath: orbitRadius
+      value: 51.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763163290421976869, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
+      propertyPath: secondsPerRotation
+      value: 47.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 5385081436019991651, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 47.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317671188787061179, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
+      propertyPath: orbitRadius
+      value: 47.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364254067828022340, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 51.6
       objectReference: {fileID: 0}
     - target: {fileID: 8392825156629046886, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -768,6 +808,10 @@ PrefabInstance:
     - target: {fileID: 8392825156629046886, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9132276627429741018, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 89
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
