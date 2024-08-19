@@ -168,6 +168,7 @@ public class GameManager : MonoBehaviour
 
 	public void OnWindowClick()
 	{
+		Debug.Log("click");
 		GoToWindow();
 	}
 

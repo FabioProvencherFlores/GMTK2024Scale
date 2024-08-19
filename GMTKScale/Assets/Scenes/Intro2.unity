@@ -359,7 +359,7 @@ MonoBehaviour:
   textToShow: the end of everything is coming to our home, we need to leave this
     system.
   currentTextShown: 
-  timeBetweenTicks: 0.3
+  timeBetweenTicks: 0.08
   textUI: {fileID: 376383250}
 --- !u!1 &461331341
 GameObject:
@@ -407,7 +407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titletext: {fileID: 376383252}
   fadeoutSquare: {fileID: 1429586280}
-  nextScene: Scenes/Main
+  nextScene: Scenes/Intro3
   triggerOnClick: 1
 --- !u!1 &588639953
 GameObject:
@@ -597,8 +597,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1007589702}
-  - {fileID: 1429586281}
   - {fileID: 376383249}
+  - {fileID: 1429586281}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -760,7 +760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &1007589698
 Animator:
   serializedVersion: 5
