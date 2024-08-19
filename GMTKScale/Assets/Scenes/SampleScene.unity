@@ -504,6 +504,7 @@ MonoBehaviour:
   ModelViewObjs:
   - {fileID: 61203595}
   - {fileID: 1708524433}
+  windowController: {fileID: 3612506447875219230}
   speeds:
   - 2
   - 3
@@ -821,6 +822,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
+--- !u!114 &3612506447875219230 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2900136203319832982, guid: 5f1dd9331c8e0c5489abc685b16912ba, type: 3}
+  m_PrefabInstance: {fileID: 3612506447875219229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037712341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82afd5aa43101394c81dd4312ce287a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -25,6 +27,11 @@ public class OrbitSimulatorController : MonoBehaviour
     [SerializeField]
     private float debugTime;
 
+    private float timeOpened = 0f;
+
+    [SerializeField]
+    private TextMeshProUGUI chrono;
+
 
     void Start()
     {
@@ -34,7 +41,8 @@ public class OrbitSimulatorController : MonoBehaviour
             Debug.LogError("No Planet In Controller", this);
 
 		debugTime = 0f;
-
+		if (Application.isPlaying)
+			StartTimer();
 	}
 
     // Update is called once per frame
@@ -55,5 +63,20 @@ public class OrbitSimulatorController : MonoBehaviour
 
             orbit.UpdatePosition(t);
 		}
+
+		double mainGameTimerd = (double)GetTimeSinceOpened();
+		TimeSpan time = TimeSpan.FromSeconds(mainGameTimerd);
+        string displayTime = time.Minutes.ToString() + ":" + time.Seconds.ToString() + ":" + time.Milliseconds.ToString(); 
+        chrono.text = displayTime;
+	}
+
+    public float GetTimeSinceOpened()
+    {
+        return Time.time - timeOpened;
+    }
+
+    public void StartTimer()
+    {
+        timeOpened = Time.time;
     }
 }

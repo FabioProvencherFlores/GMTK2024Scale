@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     GameObject[] ModelViewObjs;
 
     [SerializeField]
+    OrbitSimulatorController windowController;
+
+    [SerializeField]
     public float[] speeds;
 
     int currentView = 0; // 0 = window, 1 = model
@@ -50,6 +53,7 @@ public class GameManager : MonoBehaviour
 				{
 					obj.SetActive(false);
 				}
+                windowController.StartTimer();
                 currentView = 0;
             }
         }
