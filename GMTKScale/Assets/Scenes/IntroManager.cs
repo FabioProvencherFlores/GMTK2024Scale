@@ -46,7 +46,8 @@ public class IntroManager : MonoBehaviour
 
 	public void OnNextSlide()
     {
-        StartCoroutine(NextSlide());
+		GameObject.FindGameObjectWithTag("Music").GetComponent<SoundController>().PlayMusic();
+		StartCoroutine(NextSlide());
     }
 
 	IEnumerator NextSlide()
