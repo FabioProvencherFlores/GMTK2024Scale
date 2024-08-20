@@ -1343,6 +1343,10 @@ MonoBehaviour:
   - 340
   - 380
   - 680
+  fastForwardMultiplier: 1
+  veryFastForwardMultiplier: 1
+  endGameTimeInSec: 960
+  debugTime: 0
 --- !u!4 &1686258687
 Transform:
   m_ObjectHideFlags: 0
