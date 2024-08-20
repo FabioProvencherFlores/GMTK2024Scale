@@ -753,9 +753,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c87664a156ce684bba22fd1a8227c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textToShow: 
+  textToShow: "You were not able to complete an accurate replica of the system in
+    time. \n\nThe end of everything slowly pulled you in.\n\nThanks for playing."
   currentTextShown: 
-  timeBetweenTicks: 0.7
+  timeBetweenTicks: 0.07
   textUI: {fileID: 1770238628}
 --- !u!114 &1770238628
 MonoBehaviour:
@@ -777,8 +778,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "You were not able to complete an accurate replica of the system in time.
-    \n\nThe end of everything slowly pulled you in.\n\nThanks for playing."
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2cb63eced5b16784da9a8c5a8328b3e7, type: 2}
   m_sharedMaterial: {fileID: -1253469089470306341, guid: 2cb63eced5b16784da9a8c5a8328b3e7, type: 2}

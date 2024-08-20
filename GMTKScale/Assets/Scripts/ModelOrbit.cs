@@ -8,6 +8,8 @@ public class ModelOrbit : MonoBehaviour
 
 	[SerializeField]
 	public int answerPos = 0;
+	[SerializeField]
+	public int answerSpeed = 0;
 
 	[SerializeField, Range(0f, 1f)]
 	public float sliderValue = 0f;

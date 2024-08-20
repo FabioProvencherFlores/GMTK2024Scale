@@ -846,6 +846,7 @@ GameObject:
   - component: {fileID: 1206103220}
   - component: {fileID: 1206103222}
   - component: {fileID: 1206103221}
+  - component: {fileID: 1206103223}
   m_Layer: 5
   m_Name: Backtext
   m_TagString: Untagged
@@ -910,6 +911,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1206103219}
   m_CullTransparentMesh: 1
+--- !u!95 &1206103223
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206103219}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1456471621
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,6 +1059,8 @@ PlayableDirector:
     value: {fileID: 1640362930}
   - key: {fileID: 7613170665921292878, guid: 14f22a63f60d13f4ebc39693383a2ea1, type: 2}
     value: {fileID: 2026412112}
+  - key: {fileID: -67936074037236984, guid: 14f22a63f60d13f4ebc39693383a2ea1, type: 2}
+    value: {fileID: 1206103223}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &1640362930

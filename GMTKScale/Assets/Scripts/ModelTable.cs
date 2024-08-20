@@ -26,6 +26,11 @@ public class ModelTable : MonoBehaviour
     private int _currentSelectIdx = 0;
     public int selectedSpeed = 0; // de 0 a 9
 
+    [SerializeField]
+    bool _checkPosition = true;
+    [SerializeField]
+    bool _checkSpeed = true;
+
     void Awake()
     {
         if (modelOrbits.Length == 0)
@@ -86,34 +91,70 @@ public class ModelTable : MonoBehaviour
 		}
 	}
 
-    public bool CheckIfVictory()
+    public bool CheckIfVictoryPosition()
     {
-
-        float lowbound = -1f;
-
-        for (int i = 0; i < 6; i++)
+        if ( _checkPosition)
         {
-            float smallest = 999f;
-            int answer = -1;
+            float lowbound = -1f;
 
-
-            foreach (ModelOrbit orb in modelOrbits)
+            for (int i = 0; i < 6; i++)
             {
-                if (orb.sliderValue < smallest && orb.sliderValue > lowbound)
+                float smallest = 999f;
+                int answer = -1;
+
+
+                foreach (ModelOrbit orb in modelOrbits)
                 {
-                    smallest = orb.sliderValue;
-                    answer = orb.answerPos;
+                    if (orb.sliderValue < smallest && orb.sliderValue > lowbound)
+                    {
+                        smallest = orb.sliderValue;
+                        answer = orb.answerPos;
+                    }
                 }
-            }
 
-            if (answer != i)
-            {
-                return false;
-            }
+                if (answer != i)
+                {
+                    return false;
+                }
 
-            lowbound = smallest;
+                lowbound = smallest;
             
+            }
         }
+
         return true;
     }
+
+	public bool CheckIfVictorySpeed()
+    {
+		if (_checkSpeed)
+		{
+			int lowbound = -1;
+
+			for (int i = 0; i < 6; i++)
+			{
+				int smallest = 999;
+				int answer = -1;
+
+
+				foreach (ModelOrbit orb in modelOrbits)
+				{
+					if (orb.selectedSpeediDx < smallest && orb.selectedSpeediDx > lowbound)
+					{
+						smallest = orb.selectedSpeediDx;
+						answer = orb.answerSpeed;
+					}
+				}
+                if (answer-1 != i)
+				{
+					return false;
+				}
+
+				lowbound = smallest;
+
+			}
+		}
+
+		return true;
+	}
 }

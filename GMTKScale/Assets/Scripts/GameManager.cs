@@ -1,3 +1,4 @@
+using DigitalRuby.RainMaker;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -61,8 +62,17 @@ public class GameManager : MonoBehaviour
 	GameObject fadeoutWin;
 	[SerializeField]
 	GameObject fadeoutLose;
-	
+	[SerializeField]
+	RainScript rain;
+	[SerializeField]
+	GameObject failPos;
+	[SerializeField]
+	GameObject failSpeed;
+	[SerializeField]
+	GameObject timeoutMessage;
 
+	float _overrideLerpLose = 999f;
+	float _overrideLerpWin = 0f;
 
 	private void Awake()
 	{
@@ -141,8 +151,8 @@ public class GameManager : MonoBehaviour
 			if (GetCurrentTime() > endGameTimeInSec)
 			{
 				TriggerEndGame();
+				_isGameRunning = false;
 			}
-			_isGameRunning = false;
 		}
 	}
 
@@ -246,12 +256,15 @@ public class GameManager : MonoBehaviour
 
 	public float GetEndGameBlackholeLerp()
 	{
+		//if (_overrideLerp >= 0f) return _overrideLerp;
+
 		float currentTimeInEndgame = GetCurrentTime() - startOfBlackhole;
-		if (currentTimeInEndgame < 0f) return 1f;
 
 		float lerp = (180f - currentTimeInEndgame) / 180f;
-		
-		if(lerp < 0f) return 0f;
+		lerp += _overrideLerpWin;
+		if (lerp > 1f) lerp = 1f;
+		if(lerp < 0f) lerp = 0f;
+		if (_overrideLerpLose < lerp) lerp = _overrideLerpLose;
 
 		return lerp;
 	}
@@ -266,29 +279,69 @@ public class GameManager : MonoBehaviour
 	IEnumerator CheckForVictory()
 	{
 		ModelViewObjs[1].gameObject.SetActive(true);
-		bool hasWon = model.CheckIfVictory();
-		yield return new WaitForSeconds(10);
+		bool positionCorrect = model.CheckIfVictoryPosition();
+		bool speedCorrect = model.CheckIfVictorySpeed();
+		yield return new WaitForSeconds(6);
 		fadeinUI.SetActive(true);
-		if(hasWon)
+		if(positionCorrect&& speedCorrect)
 		{
+			StartCoroutine(BackoffBlackhole());
+			yield return new WaitForSeconds(4); 
 			fadeoutWin.SetActive(true);
 		}
 		else
 		{
+			StartCoroutine(ForceBalkhole());
+			yield return new WaitForSeconds(2); 
+			if (!speedCorrect)
+			{
+				failSpeed.gameObject.SetActive(true);
+			}
+			if (!positionCorrect)
+			{
+				failPos.gameObject.SetActive(true);
+			}
+
+			yield return new WaitForSeconds(4); 
+
 			fadeoutLose.SetActive(true);
 		}
 
 		yield return new WaitForSeconds(5);
-		if(hasWon)
+		if(positionCorrect&& speedCorrect)
 		{
 			SceneManager.LoadScene("Scenes/EndWin");
 		}
 		else
 		{
 			SceneManager.LoadScene("Scenes/EndLose");
-
 		}
 	}
+	IEnumerator BackoffBlackhole()
+	{
+		float newLerp = 0f;
+		while (true)
+		{
+			newLerp += Time.deltaTime / 3f;
+			if (newLerp > 1f) newLerp = 1f;
+			_overrideLerpWin = newLerp;
+			yield return null;
+		}
+	}
+	IEnumerator ForceBalkhole()
+	{
+		float newLerp = 1f;
+		while (true)
+		{
+			newLerp -= Time.deltaTime / 3f;
+			if(newLerp < 0f) newLerp = 0f;
+			_overrideLerpLose = newLerp;
+			yield return null;
+		}
+	}
+
+
+
 	IEnumerator ScreenShake()
 	{
 		Vector3 startPos = lobbyToShake.position;
@@ -297,8 +350,21 @@ public class GameManager : MonoBehaviour
 
 		while (true)
 		{
-			elapsedTime += Time.deltaTime/100f;
+			elapsedTime += Time.deltaTime/30f;
+			if (elapsedTime > 3.5f)
+			{
+				rain.RainIntensity = 3.5f;
+			}
+			else
+			{
+				rain.RainIntensity = elapsedTime;
+			}
 			float str = curve.Evaluate(elapsedTime);
+			if (elapsedTime > 2f)
+			{
+				str = 2f;
+			}
+
 			lobbyToShake.position = startPos + Random.insideUnitSphere * str;
 			yield return null;
 		}
@@ -306,6 +372,13 @@ public class GameManager : MonoBehaviour
 
 	private void TriggerEndGame()
 	{
+		StartCoroutine(TriggerTimeout());
+	}
 
+	IEnumerator TriggerTimeout()
+	{
+		fadeoutLose.SetActive(true);
+		yield return new WaitForSeconds(1);
+		SceneManager.LoadScene("Scenes/EndLose");
 	}
 }

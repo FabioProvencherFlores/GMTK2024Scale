@@ -20,15 +20,18 @@ public class LobbyController : MonoBehaviour
     TextAnimator warningText;
     float _timeWarninigStarted;
     bool _warningdone = false;
+    bool _gameIsDone = false;
 
 
 
 	void Update()
     {
+
         float lerpValue = GameManager.instance.GetEndGameBlackholeLerp();
         Vector3 currentPos = Vector3.Lerp(endPos.position, startPos.position, lerpValue);
         blackholePos.position = currentPos;
 
+        if (_gameIsDone) return;
         if(_warningdone )
         {
             if (GameManager.instance.GetCurrentTime() - _timeWarninigStarted > 10f)
@@ -81,7 +84,10 @@ public class LobbyController : MonoBehaviour
     {
         if (_warningdone)
         {
-            GameManager.instance.TriggerEarlyEndgame();
+			warningText.textToShow = "Launching Shuttle: Attempting Gravity Slingshot Maneuver based on replica";
+			warningText.StartMorph();
+			GameManager.instance.TriggerEarlyEndgame();
+            _gameIsDone = true;
             return;
         }
         else
