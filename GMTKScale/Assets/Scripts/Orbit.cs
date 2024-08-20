@@ -8,8 +8,12 @@ using UnityEngine;
 public class Orbit : MonoBehaviour
 {
 	[SerializeField]
+	public bool overrideSpeed = false;
+	[SerializeField]
 	[Min(0.001f)]
 	private float secondsPerRotation = 1f;
+	[SerializeField]
+	float blackholeoffet = 0f;
 
 	[SerializeField, Range(0, 9)]
 	public int speedIdx = 0;
@@ -32,7 +36,10 @@ public class Orbit : MonoBehaviour
 
 	private void Start()
 	{
-		secondsPerRotation = GameManager.instance.speeds[speedIdx];
+		if (!overrideSpeed)
+		{
+			secondsPerRotation = GameManager.instance.speeds[speedIdx];
+		}
 	}
 
 	public void UpdatePosition(float aTime)
@@ -44,7 +51,11 @@ public class Orbit : MonoBehaviour
 		}
 
 		currentAngle = processedTime * 6.28319f / secondsPerRotation;
-
+		currentAngle -= blackholeoffet;
+		if (overrideSpeed)
+		{
+			currentAngle *= -1f;
+		}
 
 		float x = orbitRadius * Mathf.Cos(currentAngle);
 		float z = orbitRadius * Mathf.Sin(currentAngle);

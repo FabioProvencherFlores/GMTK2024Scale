@@ -65,6 +65,7 @@ public class TextAnimator : MonoBehaviour
 		_currentLength = 0;
 		if (textToShow.Length > 0) _currentLength = 1;
 		_totalLength = textToShow.Length;
+		_timeSinceLastTick = timeBetweenTicks + 1f;
 		currentTextShown = "";
 	}
 

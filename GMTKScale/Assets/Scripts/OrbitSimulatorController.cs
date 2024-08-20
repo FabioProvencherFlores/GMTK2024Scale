@@ -115,7 +115,7 @@ public class OrbitSimulatorController : MonoBehaviour
             if (isInGame) _lineRenderer.materials[0].color = targetedColor;
 		    _lineRenderer.SetPosition(0, laserStartPos.position);
 		    _lineRenderer.SetPosition(1, laserTempEndPos);
-            int speed = (10 - speedidx) * 50;
+            int speed = (speedidx) * 50;
             string speedtext = "";
             if (speed < 100) speedtext += "0";
             speedtext += speed.ToString();
@@ -144,22 +144,6 @@ public class OrbitSimulatorController : MonoBehaviour
             speedTextAnimator.StartMorph();
         }
 
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            GameManager.instance.StartNormalTime();
-            _isCurrentlyFast = false;
-
-		}
-		else if (Input.GetKeyDown(KeyCode.S))
-		{
-			GameManager.instance.StartFastForward();
-            _isCurrentlyFast = true;
-		}
-		else if (Input.GetKeyDown(KeyCode.D))
-		{
-			GameManager.instance.StartVeryFastForward();
-            _isCurrentlyFast = true;
-		}
 
 	}
 
@@ -188,6 +172,7 @@ public class OrbitSimulatorController : MonoBehaviour
 
     public float GetTimeSinceOpened()
     {
+        if (GameManager.instance == null) return 0f;
         return GameManager.instance.GetCurrentTime() - timeOpened;
     }
 

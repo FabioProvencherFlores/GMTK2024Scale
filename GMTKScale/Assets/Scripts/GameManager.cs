@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 	private float _currentIngameTimeBeforeFastForward = 0f;
 	private float _lastTimeUpdate = 0f;
 	private bool _isFastForward = false;
-	private bool _isVeryFastoForward = false;
+	public bool isVeryFastoForward = false;
 
 	[Header("GameFlow")]
 	[SerializeField]
@@ -38,6 +38,22 @@ public class GameManager : MonoBehaviour
 	private bool _isGameRunning = true;
 	[SerializeField]
 	float debugTime = 0f;
+	private bool _isInFinalCutscene = false;
+	[SerializeField]
+	GameObject[] blackholes;
+	int _currentBlackholeStage = 0;
+
+	[Header("EndGame Stuff")]
+	[SerializeField]
+	Transform lobbyToShake;
+	[SerializeField]
+	float startOfBlackhole = 720f;
+	[SerializeField]
+	public AnimationCurve curve;
+	[SerializeField]
+	GameObject fadeinUI;
+	
+
 
 	private void Awake()
 	{
@@ -65,6 +81,11 @@ public class GameManager : MonoBehaviour
 				GoToLobby();
 			}
         }
+        if (Input.GetKeyDown(KeyCode.Q))
+		{
+			TriggerEarlyEndgame();
+		}
+
 		if (currentView == 1)
 		{
 			if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -85,11 +106,26 @@ public class GameManager : MonoBehaviour
 			{
 				_additionnalTimeFromFastForward += (deltaTime * (fastForwardMultiplier - 1f));
 			}
-            else if (_isVeryFastoForward)
+            else if (isVeryFastoForward)
             {
 				_additionnalTimeFromFastForward += (deltaTime * (veryFastForwardMultiplier - 1f));
             }
         }
+
+		if (GetCurrentTime() > 430 && _currentBlackholeStage == 0)
+		{
+			blackholes[0].SetActive(false);
+			blackholes[1].SetActive(true);
+			_currentBlackholeStage++;
+		}
+		else if (GetCurrentTime() > 720f && _currentBlackholeStage == 1)
+		{
+			blackholes[1].SetActive(false);
+			blackholes[2].SetActive(true);
+			_currentBlackholeStage++;
+		}
+
+
 
 		if (_isGameRunning)
 		{
@@ -122,24 +158,31 @@ public class GameManager : MonoBehaviour
 	public void StartNormalTime()
 	{
 		_isFastForward = false;
-		_isVeryFastoForward = false;
+		isVeryFastoForward = false;
 	}
 
 	public void StartFastForward()
 	{
 		_isFastForward = true;
-		_isVeryFastoForward = false;
+		isVeryFastoForward = false;
 	}
 
 	public void StartVeryFastForward()
 	{
 		_isFastForward = false;
-		_isVeryFastoForward = true;
+		isVeryFastoForward = true;
 	}
 
 	public float GetCurrentTime()
 	{
 		return _currentIngameTimeBeforeFastForward + _additionnalTimeFromFastForward + debugTime;
+	}
+
+	public float GetRemainingTime()
+	{
+		float remaining = endGameTimeInSec - GetCurrentTime();
+		if (remaining < 0f) return 0f;
+		return remaining;
 	}
 
 	private void GoToModel()
@@ -157,7 +200,6 @@ public class GameManager : MonoBehaviour
 			obj.SetActive(false);
 		}
 		currentView = 2;
-		StartNormalTime();
 	}
 
 	private void GoToLobby()
@@ -175,7 +217,6 @@ public class GameManager : MonoBehaviour
 			obj.SetActive(true);
 		}
 		currentView = 0;
-		StartNormalTime();
 	}
 
 	public void OnLeaveModelButtonClick()
@@ -196,7 +237,7 @@ public class GameManager : MonoBehaviour
 
 	public float GetEndGameBlackholeLerp()
 	{
-		float currentTimeInEndgame = GetCurrentTime() - 720f;
+		float currentTimeInEndgame = GetCurrentTime() - startOfBlackhole;
 		if (currentTimeInEndgame < 0f) return 1f;
 
 		float lerp = (180f - currentTimeInEndgame) / 180f;
@@ -205,6 +246,19 @@ public class GameManager : MonoBehaviour
 
 		return lerp;
 	}
+
+	private void TriggerEarlyEndgame()
+	{
+		_isInFinalCutscene = true;
+	}
+
+	//IEnumerator ScreenShake()
+	//{
+	//	Vector3 startPos = lobbyToShake.position;
+	//	float elapsedTime = 0f;
+
+	//	while (elapsedTime < )
+	//}
 
 	private void TriggerEndGame()
 	{
