@@ -21,7 +21,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public float[] speeds;
 
-    int currentView = 0; // 0 = lobby, 1 = window, 2= model
+	[SerializeField]
+	GameObject rocketsound;
+
+	int currentView = 0; // 0 = lobby, 1 = window, 2= model
 
 	[Header("Fast Forward")]
 	[SerializeField, Min(1f)]
@@ -277,7 +280,7 @@ public class GameManager : MonoBehaviour
 
 		StartCoroutine(CheckForVictory());
 		StartCoroutine(ScreenShake());
-
+		rocketsound.SetActive(true);
 	}
 	IEnumerator CheckForVictory()
 	{
@@ -311,6 +314,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		yield return new WaitForSeconds(5);
+		rocketsound.SetActive(false);
 		if(positionCorrect&& speedCorrect)
 		{
 			SceneManager.LoadScene("Scenes/EndWin");

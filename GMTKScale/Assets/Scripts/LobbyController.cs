@@ -22,8 +22,6 @@ public class LobbyController : MonoBehaviour
     bool _warningdone = false;
     bool _gameIsDone = false;
 
-
-
 	void Update()
     {
 
@@ -87,7 +85,7 @@ public class LobbyController : MonoBehaviour
 			warningText.textToShow = "Launching Shuttle: Attempting Gravity Slingshot Maneuver based on replica";
 			warningText.StartMorph();
 			GameManager.instance.TriggerEarlyEndgame();
-            _gameIsDone = true;
+			_gameIsDone = true;
             return;
         }
         else
