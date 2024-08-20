@@ -158,6 +158,7 @@ public class GameManager : MonoBehaviour
 
 	private void GoToWindow()
 	{
+		if (_isInFinalCutscene) return;
 		foreach (GameObject obj in windowViewObjs)
 		{
 			obj.SetActive(true);
@@ -206,6 +207,7 @@ public class GameManager : MonoBehaviour
 
 	private void GoToModel()
 	{
+		if (_isInFinalCutscene) return;
 		foreach (GameObject obj in windowViewObjs)
 		{
 			obj.SetActive(false);
@@ -272,6 +274,7 @@ public class GameManager : MonoBehaviour
 	public void TriggerEarlyEndgame()
 	{
 		_isInFinalCutscene = true;
+
 		StartCoroutine(CheckForVictory());
 		StartCoroutine(ScreenShake());
 
