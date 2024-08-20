@@ -6,6 +6,9 @@ public class ModelOrbit : MonoBehaviour
 {
 	private LineRenderer _lineRenderer;
 
+	[SerializeField]
+	public int answerPos = 0;
+
 	[SerializeField, Range(0f, 1f)]
 	public float sliderValue = 0f;
 

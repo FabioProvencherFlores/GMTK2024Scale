@@ -16,8 +16,10 @@ public class IntroManager : MonoBehaviour
 
     [SerializeField]
     bool triggerOnClick = false;
+	[SerializeField]
+	bool longWait = false;
 
-    void Start()
+	void Start()
     {
         titletext.StartAnimation();
     }
@@ -51,7 +53,10 @@ public class IntroManager : MonoBehaviour
     {
         fadeoutSquare.SetActive(true);
         yield return new WaitForSeconds(2);
-
+        if (longWait)
+        {
+            yield return new WaitForSeconds(5);
+        }
         SceneManager.LoadScene(nextScene);
     }
 }

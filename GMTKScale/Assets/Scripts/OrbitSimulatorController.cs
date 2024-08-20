@@ -54,6 +54,8 @@ public class OrbitSimulatorController : MonoBehaviour
 
     bool _isCurrentlyFast = false;
 
+
+
     void Start()
     {
         Debug.Log("Hello");
@@ -164,7 +166,7 @@ public class OrbitSimulatorController : MonoBehaviour
             _displayedChrono = displayTime;
             chronotext.textToShow = displayTime;
             chronotext.StartAnimation();
-            if (_isCurrentlyFast)
+            if (GameManager.instance.isVeryFastoForward)
                 chronotext.ForceFullText();
         }
 		//chrono.text = displayTime;

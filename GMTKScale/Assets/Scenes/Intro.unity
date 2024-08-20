@@ -349,6 +349,8 @@ MonoBehaviour:
   titletext: {fileID: 1575013893}
   fadeoutSquare: {fileID: 1419309471}
   nextScene: Scenes/Intro2
+  triggerOnClick: 0
+  longWait: 0
 --- !u!4 &986440059
 Transform:
   m_ObjectHideFlags: 0
@@ -1279,9 +1281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c87664a156ce684bba22fd1a8227c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textToShow: 'The scale of here and there
-
-'
+  textToShow: The scale of the end of everything
   currentTextShown: 
   timeBetweenTicks: 0.1
   textUI: {fileID: 1575013894}
@@ -1305,9 +1305,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'The scale of here and there
-
-'
+  m_text: The scale of the end of everything
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2cb63eced5b16784da9a8c5a8328b3e7, type: 2}
   m_sharedMaterial: {fileID: -1253469089470306341, guid: 2cb63eced5b16784da9a8c5a8328b3e7, type: 2}
@@ -1334,8 +1332,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.8
-  m_fontSizeBase: 32.8
+  m_fontSize: 50.03
+  m_fontSizeBase: 50.03
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

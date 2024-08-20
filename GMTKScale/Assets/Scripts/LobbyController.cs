@@ -13,19 +13,37 @@ public class LobbyController : MonoBehaviour
     [SerializeField]
     Transform blackholePos;
 
+    [Header("Countdown")]
     [SerializeField]
     TextAnimator countdownText;
     int _displayedTime = 0;
+    [SerializeField]
+    TextAnimator warningText;
+    float _timeWarninigStarted;
+    bool _warningdone = false;
 
-    void Update()
+
+
+	void Update()
     {
         float lerpValue = GameManager.instance.GetEndGameBlackholeLerp();
         Vector3 currentPos = Vector3.Lerp(endPos.position, startPos.position, lerpValue);
         blackholePos.position = currentPos;
 
+        if(_warningdone )
+        {
+            if (GameManager.instance.GetCurrentTime() - _timeWarninigStarted > 10f)
+            {
+                warningText.gameObject.SetActive(false);
+                countdownText.gameObject.SetActive(true);
+                _warningdone = false;
+                _timeWarninigStarted = 0f;
+            }
+            return;
+        }
 
         int remainingTime = (int)GameManager.instance.GetRemainingTime();
-        if (remainingTime != _displayedTime )
+        if (remainingTime != _displayedTime)
         {
             string timeToShow = "";
             if (remainingTime < 60)
@@ -34,7 +52,7 @@ public class LobbyController : MonoBehaviour
             }
             else
             {
-                int minutes = (int)remainingTime/60;
+                int minutes = (int)remainingTime / 60;
                 timeToShow += minutes.ToString();
             }
             timeToShow += ":";
@@ -58,5 +76,22 @@ public class LobbyController : MonoBehaviour
 
             _displayedTime = remainingTime;
         }
+    }
+
+    public void SetWarning()
+    {
+        if (_warningdone)
+        {
+            GameManager.instance.TriggerEarlyEndgame();
+            return;
+        }
+        else
+        {
+            _warningdone = true;
+            _timeWarninigStarted = GameManager.instance.GetCurrentTime();
+            countdownText.gameObject.SetActive(false);
+            warningText.gameObject.SetActive(true);
+            warningText.StartAnimation();
+		}
     }
 }

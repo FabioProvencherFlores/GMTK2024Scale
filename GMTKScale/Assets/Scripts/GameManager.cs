@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -52,6 +53,14 @@ public class GameManager : MonoBehaviour
 	public AnimationCurve curve;
 	[SerializeField]
 	GameObject fadeinUI;
+	[SerializeField]
+	ModelTable model;
+	[SerializeField]
+	GameObject fireSource;
+	[SerializeField]
+	GameObject fadeoutWin;
+	[SerializeField]
+	GameObject fadeoutLose;
 	
 
 
@@ -247,22 +256,56 @@ public class GameManager : MonoBehaviour
 		return lerp;
 	}
 
-	private void TriggerEarlyEndgame()
+	public void TriggerEarlyEndgame()
 	{
 		_isInFinalCutscene = true;
+		StartCoroutine(CheckForVictory());
+		StartCoroutine(ScreenShake());
+
 	}
+	IEnumerator CheckForVictory()
+	{
+		ModelViewObjs[1].gameObject.SetActive(true);
+		bool hasWon = model.CheckIfVictory();
+		yield return new WaitForSeconds(10);
+		fadeinUI.SetActive(true);
+		if(hasWon)
+		{
+			fadeoutWin.SetActive(true);
+		}
+		else
+		{
+			fadeoutLose.SetActive(true);
+		}
 
-	//IEnumerator ScreenShake()
-	//{
-	//	Vector3 startPos = lobbyToShake.position;
-	//	float elapsedTime = 0f;
+		yield return new WaitForSeconds(5);
+		if(hasWon)
+		{
+			SceneManager.LoadScene("Scenes/EndWin");
+		}
+		else
+		{
+			SceneManager.LoadScene("Scenes/EndLose");
 
-	//	while (elapsedTime < )
-	//}
+		}
+	}
+	IEnumerator ScreenShake()
+	{
+		Vector3 startPos = lobbyToShake.position;
+		float elapsedTime = 0f;
+		fireSource.gameObject.SetActive(true);
+
+		while (true)
+		{
+			elapsedTime += Time.deltaTime/100f;
+			float str = curve.Evaluate(elapsedTime);
+			lobbyToShake.position = startPos + Random.insideUnitSphere * str;
+			yield return null;
+		}
+	}
 
 	private void TriggerEndGame()
 	{
-
 
 	}
 }

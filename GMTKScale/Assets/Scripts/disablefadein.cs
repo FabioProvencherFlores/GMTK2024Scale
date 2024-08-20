@@ -6,11 +6,14 @@ public class disablefadein : MonoBehaviour
 {
     [SerializeField]
     GameObject go;
+    [SerializeField]
+    GameObject ggo;
 
     // Start is called before the first frame update
     void Start()
     {
-        go.SetActive(false);
+		ggo.SetActive(false);
+		go.SetActive(false);
     }
 
 }

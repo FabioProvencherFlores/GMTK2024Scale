@@ -85,4 +85,35 @@ public class ModelTable : MonoBehaviour
             modelOrbit.UpdatePosition(GameManager.instance.GetCurrentTime());
 		}
 	}
+
+    public bool CheckIfVictory()
+    {
+
+        float lowbound = -1f;
+
+        for (int i = 0; i < 6; i++)
+        {
+            float smallest = 999f;
+            int answer = -1;
+
+
+            foreach (ModelOrbit orb in modelOrbits)
+            {
+                if (orb.sliderValue < smallest && orb.sliderValue > lowbound)
+                {
+                    smallest = orb.sliderValue;
+                    answer = orb.answerPos;
+                }
+            }
+
+            if (answer != i)
+            {
+                return false;
+            }
+
+            lowbound = smallest;
+            
+        }
+        return true;
+    }
 }
