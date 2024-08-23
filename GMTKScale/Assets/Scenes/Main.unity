@@ -2537,7 +2537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5928113779612871061, guid: 69cdce093945c264cb54aa577cdb6055, type: 3}
       propertyPath: answerPos
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5928113779612871061, guid: 69cdce093945c264cb54aa577cdb6055, type: 3}
       propertyPath: answerSpeed
@@ -2545,7 +2545,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5987443721667162389, guid: 69cdce093945c264cb54aa577cdb6055, type: 3}
       propertyPath: answerPos
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5987443721667162389, guid: 69cdce093945c264cb54aa577cdb6055, type: 3}
       propertyPath: answerSpeed
