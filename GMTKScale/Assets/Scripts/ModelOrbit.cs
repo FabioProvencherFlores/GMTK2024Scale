@@ -12,7 +12,7 @@ public class ModelOrbit : MonoBehaviour
 	public int answerSpeed = 0;
 
 	[SerializeField, Range(0f, 1f)]
-	public float sliderValue = 0f;
+	public float positionSliderValue = 0f;
 
 	[SerializeField, Range(5, 500)]
 	private int circleResolution = 100;
@@ -53,7 +53,7 @@ public class ModelOrbit : MonoBehaviour
 		_lineRenderer.positionCount = 0;
 		_selectedOffset = 0.1f;
 		DrawOrbit();
-		return sliderValue;
+		return positionSliderValue;
 	}
 
 	public void UnselectOrbit()
@@ -67,7 +67,7 @@ public class ModelOrbit : MonoBehaviour
 	public void DrawOrbit()
 	{
 		_lineRenderer.positionCount = circleResolution;
-		radius = minOrbitRadius + ((maxOrbitRadius - minOrbitRadius) * sliderValue);
+		radius = minOrbitRadius + ((maxOrbitRadius - minOrbitRadius) * positionSliderValue);
 
 		for (int i = 0; i < circleResolution; i++)
 		{

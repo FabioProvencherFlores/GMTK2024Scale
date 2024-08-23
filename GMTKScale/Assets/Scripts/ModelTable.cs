@@ -22,7 +22,7 @@ public class ModelTable : MonoBehaviour
 	[SerializeField]
 	Slider speedSlider;
 
-	public float uiSlider = 0f;
+	public float positionSlider = 0f;
     private int _currentSelectIdx = 0;
     public int selectedSpeed = 0; // de 0 a 9
 
@@ -46,7 +46,7 @@ public class ModelTable : MonoBehaviour
             modelOrbit.horizontalDeformation = horizontalDeformation;
             modelOrbit.verticalDeformation = verticalDeformation;
 
-            modelOrbit.sliderValue = value;
+            modelOrbit.positionSliderValue = value;
             modelOrbit.selectedSpeediDx = sidx;
             value += 0.1f;
 			sidx++;
@@ -56,7 +56,7 @@ public class ModelTable : MonoBehaviour
 
 	private void Start()
 	{
-		uiSlider = modelOrbits[_currentSelectIdx].SelectOrbit();
+		positionSlider = modelOrbits[_currentSelectIdx].SelectOrbit();
 	}
 	public void SelectNext()
     {
@@ -65,19 +65,32 @@ public class ModelTable : MonoBehaviour
         _currentSelectIdx++;
         _currentSelectIdx %= modelOrbits.Length;
 
-        uiSlider = modelOrbits[_currentSelectIdx].SelectOrbit();
+        positionSlider = modelOrbits[_currentSelectIdx].SelectOrbit();
         speedSlider.value = 9f - (float)modelOrbits[_currentSelectIdx].selectedSpeediDx;
-        radiusSlider.value = uiSlider * 10f;
+        radiusSlider.value = positionSlider * 10f;
 	}
 
 	private void Update()
 	{
+        if (Application.isEditor)
+        {
+            if (Input.GetKey(KeyCode.K))
+            {
+                CheatPositionSolution();
+            }
+			if (Input.GetKey(KeyCode.L))
+			{
+				CheatSpeedSolution();
+			}
+		}
+
+
         int idx = 0;
 		foreach (ModelOrbit modelOrbit in modelOrbits)
 		{
             if (idx == _currentSelectIdx)
             {
-                modelOrbit.sliderValue = uiSlider;
+                modelOrbit.positionSliderValue = positionSlider;
                 modelOrbit.selectedSpeediDx = selectedSpeed;
             }
 
@@ -91,7 +104,41 @@ public class ModelTable : MonoBehaviour
 		}
 	}
 
-    public bool CheckIfVictoryPosition()
+    void CheatPositionSolution()
+    {
+		foreach (ModelOrbit modelOrbit in modelOrbits)
+        {
+            modelOrbit.UnselectOrbit();
+        }
+
+        positionSlider = modelOrbits[0].positionSliderValue = 0.2f;
+		positionSlider = modelOrbits[1].positionSliderValue = 0.9f;
+		positionSlider = modelOrbits[2].positionSliderValue = 0.8f;
+		positionSlider = modelOrbits[3].positionSliderValue = 0.1f;
+		positionSlider = modelOrbits[4].positionSliderValue = 0.3f;
+		positionSlider = modelOrbits[5].positionSliderValue = 0.5f;
+
+        SelectNext();
+	}
+
+    void CheatSpeedSolution()
+    {
+		foreach (ModelOrbit modelOrbit in modelOrbits)
+		{
+			modelOrbit.UnselectOrbit();
+		}
+
+		positionSlider = modelOrbits[0].selectedSpeediDx = 2;
+		positionSlider = modelOrbits[1].selectedSpeediDx = 8;
+		positionSlider = modelOrbits[2].selectedSpeediDx = 4;
+		positionSlider = modelOrbits[3].selectedSpeediDx = 1;
+		positionSlider = modelOrbits[4].selectedSpeediDx = 7;
+		positionSlider = modelOrbits[5].selectedSpeediDx = 3;
+
+        SelectNext();
+    }
+
+	public bool CheckIfVictoryPosition()
     {
         if ( _checkPosition)
         {
@@ -105,9 +152,9 @@ public class ModelTable : MonoBehaviour
 
                 foreach (ModelOrbit orb in modelOrbits)
                 {
-                    if (orb.sliderValue < smallest && orb.sliderValue > lowbound)
+                    if (orb.positionSliderValue < smallest && orb.positionSliderValue > lowbound)
                     {
-                        smallest = orb.sliderValue;
+                        smallest = orb.positionSliderValue;
                         answer = orb.answerPos;
                     }
                 }

@@ -17,7 +17,7 @@ public class OrbitSlider : MonoBehaviour
     {
         if (isRadius)
         {
-			table.uiSlider = ((float)slider.value) / 10f;
+			table.positionSlider = ((float)slider.value) / 10f;
         }
 		else
 		{
