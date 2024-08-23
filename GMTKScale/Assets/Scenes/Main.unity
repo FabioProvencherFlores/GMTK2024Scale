@@ -3146,6 +3146,7 @@ MonoBehaviour:
   failSpeed: {fileID: 1528680424}
   timeoutMessage: {fileID: 0}
   validatorHolder: {fileID: 1133217929}
+  expectedImage: {fileID: 468870422}
 --- !u!4 &1686258687
 Transform:
   m_ObjectHideFlags: 0
