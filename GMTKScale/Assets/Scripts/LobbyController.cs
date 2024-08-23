@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LobbyController : MonoBehaviour
@@ -15,6 +16,8 @@ public class LobbyController : MonoBehaviour
     [Header("Countdown")]
     [SerializeField]
     TextAnimator countdownText;
+    [SerializeField]
+    TextMeshProUGUI smallerCoundownText;
     int _displayedTime = 0;
     [SerializeField]
     TextAnimator warningText;
@@ -32,14 +35,14 @@ public class LobbyController : MonoBehaviour
         if (_gameIsDone) return;
         if(_warningdone )
         {
-            if (GameManager.instance.GetCurrentTime() - _timeWarninigStarted > 10f)
+            if (!GameManager.instance.IsValidatorRunning())
             {
                 warningText.gameObject.SetActive(false);
                 countdownText.gameObject.SetActive(true);
+                smallerCoundownText.gameObject.SetActive(false);
                 _warningdone = false;
                 _timeWarninigStarted = 0f;
             }
-            return;
         }
 
         int remainingTime = (int)GameManager.instance.GetRemainingTime();
@@ -64,6 +67,7 @@ public class LobbyController : MonoBehaviour
             timeToShow += seconds.ToString();
 
             countdownText.textToShow = timeToShow;
+            smallerCoundownText.text = timeToShow;
             if (GameManager.instance.isVeryFastoForward)
             {
                 countdownText.StartAnimation();
@@ -71,11 +75,12 @@ public class LobbyController : MonoBehaviour
             }
             else
             {
-                countdownText.StartMorph();
+                countdownText.StartAnimation();
             }
 
             _displayedTime = remainingTime;
-        }
+
+		}
     }
 
     public void SetWarning()
@@ -84,6 +89,7 @@ public class LobbyController : MonoBehaviour
         {
 			warningText.textToShow = "Launching Shuttle: Attempting Gravity Slingshot Maneuver based on replica";
 			warningText.StartMorph();
+			GameManager.instance.InterruptValidator();
 			GameManager.instance.TriggerEarlyEndgame();
 			_gameIsDone = true;
             return;
@@ -94,7 +100,12 @@ public class LobbyController : MonoBehaviour
             _timeWarninigStarted = GameManager.instance.GetCurrentTime();
             countdownText.gameObject.SetActive(false);
             warningText.gameObject.SetActive(true);
-            warningText.StartAnimation();
+            smallerCoundownText.gameObject.SetActive(true);
+            warningText.textToShow = "Are you sure the model is accurate? Press again to confirm.";
+
+			warningText.StartAnimation();
+            GameManager.instance.StartModelValidator();
+
 		}
     }
 }

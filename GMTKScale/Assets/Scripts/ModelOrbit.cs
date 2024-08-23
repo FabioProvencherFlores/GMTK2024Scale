@@ -37,6 +37,10 @@ public class ModelOrbit : MonoBehaviour
 	[SerializeField]
 	Color unselectedMat;
 
+	[Header("Laser Angles")]
+	[SerializeField]
+	public Sprite imageToShow;
+
 	private void Awake()
 	{
 		_lineRenderer = GetComponent<LineRenderer>();

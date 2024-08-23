@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,6 +37,20 @@ public class GameManager : MonoBehaviour
 	private float _lastTimeUpdate = 0f;
 	private bool _isFastForward = false;
 	public bool isVeryFastoForward = false;
+	[SerializeField]
+	Color selectedPlaySpeedColor;
+	[SerializeField]
+	Color selectedFastSpeedColor;
+	[SerializeField]
+	Color selectedVFSpeedColor;
+	[SerializeField]
+	Color unselectedSpeedColor;
+	[SerializeField]
+	Image playSprite;
+	[SerializeField]
+	Image fastSprite;
+	[SerializeField]
+	Image veryfastSprite;
 
 	[Header("GameFlow")]
 	[SerializeField]
@@ -77,6 +92,10 @@ public class GameManager : MonoBehaviour
 	float _overrideLerpLose = 999f;
 	float _overrideLerpWin = 0f;
 
+	bool _isValidatorRunning = false;
+	bool _isValidatorInterrupted = false;
+	bool _isValidatorDone = false;
+
 	private void Awake()
 	{
 		if (instance == null && instance != this)
@@ -86,26 +105,34 @@ public class GameManager : MonoBehaviour
 		debugTime = 0f;
 	}
 
+	private void Start()
+	{
+		StartNormalTime();
+	}
+
 	void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-			if (currentView == 0)
-			{
-				GoToWindow();
-			}
-			else if (currentView == 1)
-			{
-				GoToModel();
-			}
-			else if (currentView == 2)
-			{
-				GoToLobby();
-			}
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
+		if (Application.isEditor)
 		{
-			TriggerEarlyEndgame();
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				if (currentView == 0)
+				{
+					GoToWindow();
+				}
+				else if (currentView == 1)
+				{
+					GoToModel();
+				}
+				else if (currentView == 2)
+				{
+					GoToLobby();
+				}
+			}
+			if (Input.GetKeyDown(KeyCode.Q))
+			{
+				TriggerEarlyEndgame();
+			}
 		}
 
 		if (currentView == 1)
@@ -182,18 +209,30 @@ public class GameManager : MonoBehaviour
 	{
 		_isFastForward = false;
 		isVeryFastoForward = false;
+		playSprite.color = selectedPlaySpeedColor;
+		fastSprite.color = unselectedSpeedColor;
+		veryfastSprite.color = unselectedSpeedColor;
+
+		if (_isValidatorRunning) InterruptValidator();
 	}
 
 	public void StartFastForward()
 	{
 		_isFastForward = true;
 		isVeryFastoForward = false;
+		playSprite.color = unselectedSpeedColor;
+		fastSprite.color = selectedFastSpeedColor;
+		veryfastSprite.color = unselectedSpeedColor;
+		if (_isValidatorRunning) InterruptValidator();
 	}
 
 	public void StartVeryFastForward()
 	{
 		_isFastForward = false;
 		isVeryFastoForward = true;
+		playSprite.color = unselectedSpeedColor;
+		fastSprite.color = unselectedSpeedColor;
+		veryfastSprite.color = selectedVFSpeedColor;
 	}
 
 	public float GetCurrentTime()
@@ -259,6 +298,37 @@ public class GameManager : MonoBehaviour
 		GoToModel();
 	}
 
+	public void StartModelValidator()
+	{
+		StartVeryFastForward();
+		if (!_isValidatorRunning)
+		{
+			_isValidatorRunning = true;
+			StartCoroutine(ValidateModel());
+		}
+	}
+
+	IEnumerator ValidateModel()
+	{
+		while (!_isValidatorInterrupted && !_isValidatorDone)
+		{
+
+			yield return null;
+		}
+
+		_isValidatorRunning = false;
+	}
+
+	public void InterruptValidator()
+	{
+		_isValidatorInterrupted = true;
+	}
+
+	public bool IsValidatorRunning()
+	{
+		return _isValidatorRunning;
+	}
+
 	public float GetEndGameBlackholeLerp()
 	{
 		//if (_overrideLerp >= 0f) return _overrideLerp;
@@ -285,6 +355,7 @@ public class GameManager : MonoBehaviour
 	IEnumerator CheckForVictory()
 	{
 		ModelViewObjs[1].gameObject.SetActive(true);
+		ModelViewObjs[2].gameObject.SetActive(false);
 		bool positionCorrect = model.CheckIfVictoryPosition();
 		bool speedCorrect = model.CheckIfVictorySpeed();
 		yield return new WaitForSeconds(6);
