@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -88,6 +89,12 @@ public class GameManager : MonoBehaviour
 	GameObject failSpeed;
 	[SerializeField]
 	GameObject timeoutMessage;
+
+	[Header("Validator")]
+	[SerializeField]
+	GameObject validatorHolder;
+	[SerializeField]
+	Image expectedImage;
 
 	float _overrideLerpLose = 999f;
 	float _overrideLerpWin = 0f;
@@ -189,6 +196,7 @@ public class GameManager : MonoBehaviour
 	private void GoToWindow()
 	{
 		if (_isInFinalCutscene) return;
+		if (_isValidatorRunning) InterruptValidator();
 		foreach (GameObject obj in windowViewObjs)
 		{
 			obj.SetActive(true);
@@ -250,6 +258,7 @@ public class GameManager : MonoBehaviour
 	private void GoToModel()
 	{
 		if (_isInFinalCutscene) return;
+		if (_isValidatorRunning) InterruptValidator();
 		foreach (GameObject obj in windowViewObjs)
 		{
 			obj.SetActive(false);
@@ -304,19 +313,47 @@ public class GameManager : MonoBehaviour
 		if (!_isValidatorRunning)
 		{
 			_isValidatorRunning = true;
+			validatorHolder.SetActive(true);
 			StartCoroutine(ValidateModel());
 		}
 	}
 
+
 	IEnumerator ValidateModel()
 	{
+		validatorHolder.SetActive(true);
+		float nextStepTime = 0f;
+		bool isLoading = false;
+		int currentPos = 0;
 		while (!_isValidatorInterrupted && !_isValidatorDone)
 		{
+			float currentTime = GetCurrentTime();
+			if (GetCurrentTime() > nextStepTime)
+			{
+				if (!isLoading)
+				{
+					Sprite spriteToShow = model.GetExpectedSprite(currentPos);
+					if (spriteToShow != null )
+					{
+						expectedImage.sprite = spriteToShow;
+					}
+					nextStepTime = currentTime + 30f;
+
+				}
+			}
+
 
 			yield return null;
 		}
-
+		HideValidator();
 		_isValidatorRunning = false;
+		_isValidatorInterrupted = false;
+		_isValidatorDone = false;
+	}
+
+	void HideValidator()
+	{
+		validatorHolder.SetActive(false);
 	}
 
 	public void InterruptValidator()

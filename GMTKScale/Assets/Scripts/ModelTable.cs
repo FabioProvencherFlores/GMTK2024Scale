@@ -104,6 +104,37 @@ public class ModelTable : MonoBehaviour
 		}
 	}
 
+    public Sprite GetExpectedSprite(int answerPos)
+    {
+
+		float lowbound = -1f;
+
+		for (int i = 0; i < 6; i++)
+		{
+			float smallest = 999f;
+			Sprite returnSprite = null;
+
+
+			foreach (ModelOrbit orb in modelOrbits)
+			{
+				if (orb.positionSliderValue < smallest && orb.positionSliderValue > lowbound)
+				{
+					smallest = orb.positionSliderValue;
+					returnSprite = orb.imageToShow;
+				}
+			}
+
+			lowbound = smallest;
+            if (i == answerPos)
+            {
+                return returnSprite;
+            }
+		}
+
+
+		return null;
+	}
+
     void CheatPositionSolution()
     {
 		foreach (ModelOrbit modelOrbit in modelOrbits)
