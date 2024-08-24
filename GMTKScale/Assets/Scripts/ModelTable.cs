@@ -31,28 +31,39 @@ public class ModelTable : MonoBehaviour
     [SerializeField]
     bool _checkSpeed = true;
 
+    bool _isInit = false;
+
     void Awake()
     {
         if (modelOrbits.Length == 0)
             Debug.LogError("No Orbits to draw", this);
 
-        float value = 0f;
-        int sidx = 0;
-        foreach ( ModelOrbit modelOrbit in modelOrbits )
+        if (!_isInit)
         {
-            modelOrbit.minOrbitRadius = minOrbitRadius;
-            modelOrbit.maxOrbitRadius = maxOrbitRadius;
-            
-            modelOrbit.horizontalDeformation = horizontalDeformation;
-            modelOrbit.verticalDeformation = verticalDeformation;
-
-            modelOrbit.positionSliderValue = value;
-            modelOrbit.selectedSpeediDx = sidx;
-            value += 0.1f;
-			sidx++;
-
-		}
+			Init();
+        }
     }
+
+    public void Init()
+    {
+		float value = 0.1f;
+		int sidx = 0;
+		foreach (ModelOrbit modelOrbit in modelOrbits)
+		{
+			modelOrbit.minOrbitRadius = minOrbitRadius;
+			modelOrbit.maxOrbitRadius = maxOrbitRadius;
+
+			modelOrbit.horizontalDeformation = horizontalDeformation;
+			modelOrbit.verticalDeformation = verticalDeformation;
+
+			modelOrbit.positionSliderValue = value;
+			modelOrbit.selectedSpeediDx = sidx;
+			value += 0.1f;
+			sidx++;
+		}
+
+		_isInit = true;
+	}
 
 	private void Start()
 	{
@@ -104,9 +115,76 @@ public class ModelTable : MonoBehaviour
 		}
 	}
 
-    public Sprite GetExpectedSprite(int answerPos)
-    {
+	public bool CheckIfPositionIsCorrect(int orderPos)
+	{
+		float lowbound = -1f;
 
+		for (int i = 0; i < 6; i++)
+		{
+			float smallest = 999f;
+			int answer = -1;
+
+
+			foreach (ModelOrbit orb in modelOrbits)
+			{
+				if (orb.positionSliderValue < smallest && orb.positionSliderValue > lowbound)
+				{
+					smallest = orb.positionSliderValue;
+					answer = orb.answerPos;
+				}
+			}
+
+			if (answer != i)
+			{
+				return false;
+			}
+
+			if (i == orderPos)
+			{
+				return true;
+			}
+
+			lowbound = smallest;
+		}
+
+		return false;
+	}
+
+	public bool CheckIfSpeedIsCorrect(int orderPos)
+	{
+		int lowbound = -1;
+
+		for (int i = 0; i < 6; i++)
+		{
+			int smallest = 999;
+			int answer = -1;
+
+
+			foreach (ModelOrbit orb in modelOrbits)
+			{
+				if (orb.selectedSpeediDx < smallest && orb.selectedSpeediDx > lowbound)
+				{
+					smallest = orb.selectedSpeediDx;
+					answer = orb.answerSpeed;
+				}
+			}
+			if (answer - 1 != i)
+			{
+				return false;
+			}
+
+			if (i == orderPos)
+			{
+				return true;
+			}
+
+			lowbound = smallest;
+		}
+		return false;
+	}
+
+	public Sprite GetExpectedSprite(int orderPos)
+    {
 		float lowbound = -1f;
 
 		for (int i = 0; i < 6; i++)
@@ -125,7 +203,7 @@ public class ModelTable : MonoBehaviour
 			}
 
 			lowbound = smallest;
-            if (i == answerPos)
+            if (i == orderPos)
             {
                 return returnSprite;
             }

@@ -95,6 +95,33 @@ public class GameManager : MonoBehaviour
 	GameObject validatorHolder;
 	[SerializeField]
 	Image expectedImage;
+	[SerializeField]
+	TextAnimator validatorExplanationText;
+	[SerializeField]
+	GameObject invalidX;
+	[SerializeField]
+	float verificationDelay = 20f;
+	[SerializeField]
+	float incorrectPenalty = 15f;
+	[SerializeField]
+	float confirmationDelay = 15f;
+	[SerializeField]
+	float randomDelay = 5f;
+
+	public bool isModelValidated = false;
+
+	enum ValidationSteps
+	{
+		ReadyToStart,
+		CheckingPos,
+		PosValidated,
+		CheckingSpeed,
+		SpeedValidated,
+		Done,
+		Incorrect,
+	}
+
+	ValidationSteps currentValidationStep = ValidationSteps.ReadyToStart;
 
 	float _overrideLerpLose = 999f;
 	float _overrideLerpWin = 0f;
@@ -115,6 +142,7 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		StartNormalTime();
+		model.Init();
 	}
 
 	void Update()
@@ -312,40 +340,117 @@ public class GameManager : MonoBehaviour
 		StartVeryFastForward();
 		if (!_isValidatorRunning)
 		{
+			currentValidationStep = ValidationSteps.ReadyToStart;
 			_isValidatorRunning = true;
 			validatorHolder.SetActive(true);
 			StartCoroutine(ValidateModel());
 		}
 	}
-
-
 	IEnumerator ValidateModel()
 	{
 		validatorHolder.SetActive(true);
 		float nextStepTime = 0f;
-		bool isLoading = false;
+		bool isCorrect = false;
 		int currentPos = 0;
 		while (!_isValidatorInterrupted && !_isValidatorDone)
 		{
 			float currentTime = GetCurrentTime();
+
 			if (GetCurrentTime() > nextStepTime)
 			{
-				if (!isLoading)
+				if (currentValidationStep == ValidationSteps.ReadyToStart)
 				{
 					Sprite spriteToShow = model.GetExpectedSprite(currentPos);
 					if (spriteToShow != null )
 					{
 						expectedImage.sprite = spriteToShow;
 					}
-					nextStepTime = currentTime + 30f;
-
+					validatorExplanationText.SetAndStartAnimation("Checking expected position");
+					currentValidationStep = ValidationSteps.CheckingPos;
+					isCorrect = model.CheckIfPositionIsCorrect(currentPos);
+					nextStepTime = currentTime + verificationDelay + Random.Range(0f, randomDelay);
+					if (!isCorrect) nextStepTime += incorrectPenalty;
+				}
+				else if (currentValidationStep == ValidationSteps.CheckingPos)
+				{
+					// afficher position valid here
+					if (isCorrect)
+					{
+						validatorExplanationText.textToShow = "Position:  correct  ";
+						currentValidationStep = ValidationSteps.PosValidated;
+					}
+					else
+					{
+						validatorExplanationText.textToShow = "Position: incorrect ";
+						invalidX.SetActive(true);
+						currentValidationStep = ValidationSteps.Incorrect;
+					}
+					validatorExplanationText.StartMorph();
+					nextStepTime = currentTime + confirmationDelay;
+				}
+				else if (currentValidationStep == ValidationSteps.PosValidated)
+				{
+					// afficher speed valid here
+					validatorExplanationText.textToShow = "Checking angular speed";
+					validatorExplanationText.StartMorph();
+					currentValidationStep = ValidationSteps.CheckingSpeed;
+					isCorrect = model.CheckIfSpeedIsCorrect(currentPos);
+					nextStepTime = currentTime + verificationDelay + Random.Range(0f, randomDelay);
+					if (!isCorrect) nextStepTime += incorrectPenalty;
+				}
+				else if (currentValidationStep == ValidationSteps.CheckingSpeed)
+				{
+					// afficher position valid here
+					if (isCorrect)
+					{
+						validatorExplanationText.textToShow = "Speed:  correct  ";
+						currentValidationStep = ValidationSteps.SpeedValidated;
+					}
+					else
+					{
+						validatorExplanationText.textToShow = "Speed: incorrect ";
+						invalidX.SetActive(true);
+						currentValidationStep = ValidationSteps.Incorrect;
+					}
+					validatorExplanationText.StartMorph();
+					nextStepTime = currentTime + confirmationDelay;
+				}
+				else if (currentValidationStep == ValidationSteps.SpeedValidated)
+				{
+					// if speed is valid, current ++ and start again
+					if (currentPos < 5)
+					{
+						currentPos++;
+						currentValidationStep = ValidationSteps.ReadyToStart;
+					}
+					else
+					{
+						validatorExplanationText.textToShow = "Replica is ready";
+						validatorExplanationText.StartMorph();
+						nextStepTime = currentTime + 20f;
+						currentValidationStep = ValidationSteps.Done;
+						isModelValidated = true;
+					}
+				}
+				else if (currentValidationStep == ValidationSteps.Incorrect)
+				{
+					validatorExplanationText.textToShow = "Please Try again ";
+					validatorExplanationText.StartMorph();
+					currentValidationStep = ValidationSteps.Done;
+					nextStepTime = currentTime + verificationDelay;
+				}
+				else if (currentValidationStep == ValidationSteps.Done)
+				{
+					_isValidatorDone = true;
 				}
 			}
 
 
 			yield return null;
 		}
+		StartNormalTime();
 		HideValidator();
+		validatorExplanationText.textToShow = "";
 		_isValidatorRunning = false;
 		_isValidatorInterrupted = false;
 		_isValidatorDone = false;
@@ -354,6 +459,7 @@ public class GameManager : MonoBehaviour
 	void HideValidator()
 	{
 		validatorHolder.SetActive(false);
+		invalidX.SetActive(false);
 	}
 
 	public void InterruptValidator()

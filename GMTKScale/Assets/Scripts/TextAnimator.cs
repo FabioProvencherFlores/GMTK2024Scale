@@ -24,6 +24,7 @@ public class TextAnimator : MonoBehaviour
 	private void Awake()
 	{
 		_isAnimating = false;
+		textUI = GetComponent<TMP_Text>();
 	}
 	private void Update()
 	{
@@ -46,6 +47,7 @@ public class TextAnimator : MonoBehaviour
 				}
 				else
 				{
+					currentTextShown = textToShow;
 					_isAnimating = false;
 					_isMorph = false;
 				}
@@ -57,6 +59,12 @@ public class TextAnimator : MonoBehaviour
 		}
 
 		textUI.text = currentTextShown;
+	}
+
+	public void SetAndStartAnimation(string aNewString)
+	{
+		textToShow = aNewString;
+		StartAnimation();
 	}
 
 	public void StartAnimation()

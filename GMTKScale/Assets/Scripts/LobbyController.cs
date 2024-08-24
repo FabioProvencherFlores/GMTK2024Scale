@@ -56,6 +56,10 @@ public class LobbyController : MonoBehaviour
             else
             {
                 int minutes = (int)remainingTime / 60;
+                if (minutes < 10)
+                {
+                    timeToShow += "0";
+                }
                 timeToShow += minutes.ToString();
             }
             timeToShow += ":";
@@ -85,7 +89,7 @@ public class LobbyController : MonoBehaviour
 
     public void SetWarning()
     {
-        if (_warningdone)
+        if (_warningdone || GameManager.instance.isModelValidated)
         {
 			warningText.textToShow = "Launching Shuttle: Attempting Gravity Slingshot Maneuver based on replica";
 			warningText.StartMorph();
