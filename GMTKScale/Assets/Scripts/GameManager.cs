@@ -111,6 +111,8 @@ public class GameManager : MonoBehaviour
 
 	public bool isModelValidated = false;
 
+	bool _isOverrideWining = false;
+
 	enum ValidationSteps
 	{
 		ReadyToStart,
@@ -377,7 +379,7 @@ public class GameManager : MonoBehaviour
 					{
 						expectedImage.sprite = spriteToShow;
 					}
-					validatorExplanationText.SetAndStartAnimation("Checking expected position");
+					validatorExplanationText.SetAndStartAnimation("Validating position...");
 					currentValidationStep = ValidationSteps.CheckingPos;
 					isCorrect = model.CheckIfPositionIsCorrect(currentPos);
 					nextStepTime = currentTime + verificationDelay + Random.Range(0f, randomDelay);
@@ -388,7 +390,7 @@ public class GameManager : MonoBehaviour
 					// afficher position valid here
 					if (isCorrect)
 					{
-						validatorExplanationText.textToShow = "Position:  correct  ";
+						validatorExplanationText.textToShow = "Position:     correct  ";
 						currentValidationStep = ValidationSteps.PosValidated;
 					}
 					else
@@ -403,7 +405,7 @@ public class GameManager : MonoBehaviour
 				else if (currentValidationStep == ValidationSteps.PosValidated)
 				{
 					// afficher speed valid here
-					validatorExplanationText.textToShow = "Checking angular speed";
+					validatorExplanationText.textToShow = "Validating angular speed...";
 					validatorExplanationText.StartMorph();
 					currentValidationStep = ValidationSteps.CheckingSpeed;
 					isCorrect = model.CheckIfSpeedIsCorrect(currentPos);
@@ -415,7 +417,7 @@ public class GameManager : MonoBehaviour
 					// afficher position valid here
 					if (isCorrect)
 					{
-						validatorExplanationText.textToShow = "Speed:  correct  ";
+						validatorExplanationText.textToShow = "Speed:     correct  ";
 						currentValidationStep = ValidationSteps.SpeedValidated;
 					}
 					else
@@ -513,6 +515,7 @@ public class GameManager : MonoBehaviour
 		ModelViewObjs[2].gameObject.SetActive(false);
 		bool positionCorrect = model.CheckIfVictoryPosition();
 		bool speedCorrect = model.CheckIfVictorySpeed();
+		_isOverrideWining = positionCorrect && speedCorrect;
 		yield return new WaitForSeconds(6);
 		fadeinUI.SetActive(true);
 		if(positionCorrect&& speedCorrect)
@@ -612,6 +615,15 @@ public class GameManager : MonoBehaviour
 	{
 		fadeoutLose.SetActive(true);
 		yield return new WaitForSeconds(1);
-		SceneManager.LoadScene("Scenes/EndLose");
+		if (_isOverrideWining)
+		{
+			fadeoutWin.SetActive(true);
+			yield return new WaitForSeconds(6);
+			SceneManager.LoadScene("Scenes/EndWin");
+		}
+		else
+		{
+			SceneManager.LoadScene("Scenes/EndLose");
+		}
 	}
 }
