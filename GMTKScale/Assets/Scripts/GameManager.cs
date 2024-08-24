@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
 	private float _lastTimeUpdate = 0f;
 	private bool _isFastForward = false;
 	public bool isVeryFastoForward = false;
+	public GameObject PlayLightOn, FastLightOn, VeryFastLightOn;
 	[SerializeField]
 	Color selectedPlaySpeedColor;
 	[SerializeField]
@@ -248,6 +249,9 @@ public class GameManager : MonoBehaviour
 		playSprite.color = selectedPlaySpeedColor;
 		fastSprite.color = unselectedSpeedColor;
 		veryfastSprite.color = unselectedSpeedColor;
+		PlayLightOn.SetActive(true);
+		FastLightOn.SetActive(false);
+		VeryFastLightOn.SetActive(false);
 
 		if (_isValidatorRunning) InterruptValidator();
 	}
@@ -259,6 +263,10 @@ public class GameManager : MonoBehaviour
 		playSprite.color = unselectedSpeedColor;
 		fastSprite.color = selectedFastSpeedColor;
 		veryfastSprite.color = unselectedSpeedColor;
+		PlayLightOn.SetActive(false);
+		FastLightOn.SetActive(true);
+		VeryFastLightOn.SetActive(false);
+
 		if (_isValidatorRunning) InterruptValidator();
 	}
 
@@ -269,6 +277,10 @@ public class GameManager : MonoBehaviour
 		playSprite.color = unselectedSpeedColor;
 		fastSprite.color = unselectedSpeedColor;
 		veryfastSprite.color = selectedVFSpeedColor;
+
+		PlayLightOn.SetActive(false);
+		FastLightOn.SetActive(false);
+		VeryFastLightOn.SetActive(true);
 	}
 
 	public float GetCurrentTime()

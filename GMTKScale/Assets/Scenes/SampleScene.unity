@@ -1343,10 +1343,49 @@ MonoBehaviour:
   - 340
   - 380
   - 680
+  rocketsound: {fileID: 0}
   fastForwardMultiplier: 1
   veryFastForwardMultiplier: 1
+  isVeryFastoForward: 0
+  selectedPlaySpeedColor: {r: 0, g: 0, b: 0, a: 0}
+  selectedFastSpeedColor: {r: 0, g: 0, b: 0, a: 0}
+  selectedVFSpeedColor: {r: 0, g: 0, b: 0, a: 0}
+  unselectedSpeedColor: {r: 0, g: 0, b: 0, a: 0}
+  playSprite: {fileID: 0}
+  fastSprite: {fileID: 0}
+  veryfastSprite: {fileID: 0}
+  PlayLightOn: {fileID: 6668200713723482830}
+  FastLightOn: {fileID: 6668200713723482829}
+  VeryFastLightOn: {fileID: 6668200713723482828}
   endGameTimeInSec: 960
   debugTime: 0
+  blackholes: []
+  lobbyToShake: {fileID: 0}
+  startOfBlackhole: 720
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fadeinUI: {fileID: 0}
+  model: {fileID: 0}
+  fireSource: {fileID: 0}
+  fadeoutWin: {fileID: 0}
+  fadeoutLose: {fileID: 0}
+  rain: {fileID: 0}
+  failPos: {fileID: 0}
+  failSpeed: {fileID: 0}
+  timeoutMessage: {fileID: 0}
+  validatorHolder: {fileID: 0}
+  expectedImage: {fileID: 0}
+  validatorExplanationText: {fileID: 0}
+  invalidX: {fileID: 0}
+  verificationDelay: 20
+  incorrectPenalty: 15
+  confirmationDelay: 15
+  randomDelay: 5
+  isModelValidated: 0
 --- !u!4 &1686258687
 Transform:
   m_ObjectHideFlags: 0
@@ -1431,6 +1470,21 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f8ea94c1f75d1546a258df4a24dd87f, type: 3}
+--- !u!1 &6668200713723482828 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2572087744245449474, guid: 8f8ea94c1f75d1546a258df4a24dd87f, type: 3}
+  m_PrefabInstance: {fileID: 6668200713723482827}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6668200713723482829 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6269137214732107746, guid: 8f8ea94c1f75d1546a258df4a24dd87f, type: 3}
+  m_PrefabInstance: {fileID: 6668200713723482827}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6668200713723482830 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 45041459870594802, guid: 8f8ea94c1f75d1546a258df4a24dd87f, type: 3}
+  m_PrefabInstance: {fileID: 6668200713723482827}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

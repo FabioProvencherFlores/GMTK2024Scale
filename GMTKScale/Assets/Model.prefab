@@ -376,6 +376,7 @@ Transform:
   - {fileID: 8116525769482078330}
   - {fileID: 8537851877873024342}
   - {fileID: 2536746645114771501}
+  - {fileID: 584263698243681572}
   m_Father: {fileID: 2738198750196454658}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
 --- !u!212 &568792096246284451
@@ -560,7 +561,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0941475b0e243e240bde7351f42492a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderValue: 0.1
+  answerPos: 0
+  answerSpeed: 0
+  positionSliderValue: 0
   circleResolution: 100
   horizontalDeformation: 1
   verticalDeformation: 1
@@ -571,6 +574,7 @@ MonoBehaviour:
   planetTransform: {fileID: 4578863129203044460}
   selectedMat: {r: 1, g: 0, b: 0, a: 1}
   unselectedMat: {r: 0, g: 0, b: 0, a: 0}
+  imageToShow: {fileID: 0}
 --- !u!120 &6472966262002656312
 LineRenderer:
   serializedVersion: 2
@@ -1464,7 +1468,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0941475b0e243e240bde7351f42492a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderValue: 0.1
+  answerPos: 0
+  answerSpeed: 0
+  positionSliderValue: 0
   circleResolution: 100
   horizontalDeformation: 1
   verticalDeformation: 1
@@ -1475,6 +1481,7 @@ MonoBehaviour:
   planetTransform: {fileID: 3056368135798519828}
   selectedMat: {r: 1, g: 0.9792701, b: 0, a: 1}
   unselectedMat: {r: 0, g: 0, b: 0, a: 0}
+  imageToShow: {fileID: 0}
 --- !u!120 &3225972069281672653
 LineRenderer:
   serializedVersion: 2
@@ -1743,7 +1750,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0941475b0e243e240bde7351f42492a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderValue: 0.1
+  answerPos: 0
+  answerSpeed: 0
+  positionSliderValue: 0
   circleResolution: 100
   horizontalDeformation: 1
   verticalDeformation: 1
@@ -1754,6 +1763,7 @@ MonoBehaviour:
   planetTransform: {fileID: 6127354842001214719}
   selectedMat: {r: 0, g: 0.6470318, b: 1, a: 1}
   unselectedMat: {r: 0, g: 0, b: 0, a: 0}
+  imageToShow: {fileID: 0}
 --- !u!120 &6000649732629738984
 LineRenderer:
   serializedVersion: 2
@@ -2587,8 +2597,10 @@ MonoBehaviour:
   verticalDeformation: 1
   radiusSlider: {fileID: 6411276677212586618}
   speedSlider: {fileID: 5503238296827222207}
-  uiSlider: 0
+  positionSlider: 0
   selectedSpeed: 0
+  _checkPosition: 1
+  _checkSpeed: 1
 --- !u!1 &4327745384147291352
 GameObject:
   m_ObjectHideFlags: 0
@@ -3117,6 +3129,90 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5208078601305968656
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 584263698243681572}
+  - component: {fileID: 1350999281839330215}
+  m_Layer: 0
+  m_Name: GMTKScale_model-FOV
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &584263698243681572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5208078601305968656}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7515496226398232940}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1350999281839330215
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5208078601305968656}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 10478b9286b24d64cb49797089050f10, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 20, y: 15}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &5390929219928911172
 GameObject:
   m_ObjectHideFlags: 0
@@ -3196,7 +3292,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0941475b0e243e240bde7351f42492a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderValue: 0.1
+  answerPos: 0
+  answerSpeed: 0
+  positionSliderValue: 0
   circleResolution: 100
   horizontalDeformation: 1
   verticalDeformation: 1
@@ -3207,6 +3305,7 @@ MonoBehaviour:
   planetTransform: {fileID: 1942653830305489502}
   selectedMat: {r: 0.86108583, g: 0, b: 0.9843137, a: 1}
   unselectedMat: {r: 0, g: 0, b: 0, a: 0}
+  imageToShow: {fileID: 0}
 --- !u!120 &5772540782903151343
 LineRenderer:
   serializedVersion: 2
@@ -3971,7 +4070,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0941475b0e243e240bde7351f42492a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderValue: 0.1
+  answerPos: 0
+  answerSpeed: 0
+  positionSliderValue: 0
   circleResolution: 100
   horizontalDeformation: 1
   verticalDeformation: 1
@@ -3982,6 +4083,7 @@ MonoBehaviour:
   planetTransform: {fileID: 3372465239563326203}
   selectedMat: {r: 0.060619358, g: 0.5377358, b: 0, a: 0}
   unselectedMat: {r: 0, g: 0, b: 0, a: 0}
+  imageToShow: {fileID: 0}
 --- !u!120 &40993799733330936
 LineRenderer:
   serializedVersion: 2
@@ -4342,7 +4444,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0941475b0e243e240bde7351f42492a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderValue: 0.1
+  answerPos: 0
+  answerSpeed: 0
+  positionSliderValue: 0
   circleResolution: 100
   horizontalDeformation: 1
   verticalDeformation: 1
@@ -4353,6 +4457,7 @@ MonoBehaviour:
   planetTransform: {fileID: 3435511686277322127}
   selectedMat: {r: 0.6132076, g: 0.5435321, b: 0.47726062, a: 1}
   unselectedMat: {r: 0, g: 0, b: 0, a: 0}
+  imageToShow: {fileID: 0}
 --- !u!120 &4136527688258513031
 LineRenderer:
   serializedVersion: 2
