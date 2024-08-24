@@ -343,7 +343,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: For that, we need a built to scale replica of the system to calculate trajectories...
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2cb63eced5b16784da9a8c5a8328b3e7, type: 2}
   m_sharedMaterial: {fileID: -1253469089470306341, guid: 2cb63eced5b16784da9a8c5a8328b3e7, type: 2}
@@ -801,9 +801,17 @@ MonoBehaviour:
   - 3
   - 4
   - 5
+  rocketsound: {fileID: 0}
   fastForwardMultiplier: 3
   veryFastForwardMultiplier: 12
   isVeryFastoForward: 0
+  selectedPlaySpeedColor: {r: 0, g: 0, b: 0, a: 0}
+  selectedFastSpeedColor: {r: 0, g: 0, b: 0, a: 0}
+  selectedVFSpeedColor: {r: 0, g: 0, b: 0, a: 0}
+  unselectedSpeedColor: {r: 0, g: 0, b: 0, a: 0}
+  playSprite: {fileID: 0}
+  fastSprite: {fileID: 0}
+  veryfastSprite: {fileID: 0}
   endGameTimeInSec: 960
   debugTime: 0
   blackholes: []
@@ -820,6 +828,19 @@ MonoBehaviour:
   fireSource: {fileID: 0}
   fadeoutWin: {fileID: 0}
   fadeoutLose: {fileID: 0}
+  rain: {fileID: 0}
+  failPos: {fileID: 0}
+  failSpeed: {fileID: 0}
+  timeoutMessage: {fileID: 0}
+  validatorHolder: {fileID: 0}
+  expectedImage: {fileID: 0}
+  validatorExplanationText: {fileID: 0}
+  invalidX: {fileID: 0}
+  verificationDelay: 20
+  incorrectPenalty: 15
+  confirmationDelay: 15
+  randomDelay: 5
+  isModelValidated: 0
 --- !u!4 &1082169070
 Transform:
   m_ObjectHideFlags: 0
@@ -870,8 +891,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9.9999695, y: -157}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -9.9999695, y: -174.04285}
+  m_SizeDelta: {x: 100, y: 117.2872}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1206103221
 MonoBehaviour:
