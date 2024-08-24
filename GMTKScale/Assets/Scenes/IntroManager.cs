@@ -19,6 +19,11 @@ public class IntroManager : MonoBehaviour
 	[SerializeField]
 	bool longWait = false;
 
+    [SerializeField]
+    bool makeButtonAppear = false;
+    [SerializeField]
+    GameObject button;
+
 	void Start()
     {
         titletext.StartAnimation();
@@ -42,12 +47,31 @@ public class IntroManager : MonoBehaviour
                 }
 			}
         }
+
+        if (!titletext.GetIsAnimating() && makeButtonAppear)
+        {
+            button.SetActive(true);
+            makeButtonAppear = false;
+        }
 	}
 
 	public void OnNextSlide()
     {
 		GameObject.FindGameObjectWithTag("Music").GetComponent<SoundController>().PlayMusic();
 		StartCoroutine(NextSlide());
+    }
+
+    public void RetryGame()
+    {
+        triggerOnClick = false;
+        StartCoroutine(BackToMain());
+	}
+
+	IEnumerator BackToMain()
+    {
+		fadeoutSquare.SetActive(true);
+		yield return new WaitForSeconds(2);
+		SceneManager.LoadScene("Scenes/Main");
     }
 
 	IEnumerator NextSlide()
